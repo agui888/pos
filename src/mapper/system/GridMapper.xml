@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.business.system.dao.GridDao">
+	
+	<!--
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+	-->
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		<selectKey resultType="String" keyProperty="id" order="BEFORE">  
+   			select to_char(sysdate, 'yymmdd') || system_grid_seq.nextval from dual  
+   		</selectKey>   		
+	    insert into system_grid
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      id,
+	      <if test="formtag != null" >
+	        formtag,
+	      </if>
+	      <if test="gridtag != null" >
+	        gridtag,
+	      </if>
+	      <if test="userid != null" >
+	        userid,
+	      </if>
+	      <if test="columnname != null" >
+	        columnname,
+	      </if>
+	      <if test="width != null" >
+	        width,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      #{id},
+	      <if test="formtag != null" >
+	        #{formtag},
+	      </if>
+	      <if test="gridtag != null" >
+	        #{gridtag},
+	      </if>
+	      <if test="userid != null" >
+	        #{userid},
+	      </if>
+	      <if test="columnname != null" >
+	        #{columnname},
+	      </if>
+	      <if test="width != null" >
+	        #{width},
+	      </if>
+	    </trim>
+	</insert>
+
+	<update id="update">
+	    update system_grid
+	    <set>
+	      <if test="width != null" >
+	        width = #{width},
+	      </if>
+	    </set>
+	    where id = #{id}
+	</update>
+	
+	<select id="exists" resultType="String">
+		select id from system_grid where formtag = #{formtag} and userid = #{userid} and columnname = #{columnname}
+	</select>
+	
+	<select id="selectAll" resultType="GridEntity">
+		select * from system_grid
+		<include refid="whereSearch" />
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from system_grid
+		<include refid="whereSearch" />
+	</select>
+	
+	<delete id="truncate">
+		truncate table system_grid
+	</delete>
+	
+	<select id="getGridWidth" resultType="map">
+		select * from system_grid where formtag = ${formtag} and userid = ${userid}
+	</select>
+		
+	<sql id="whereSearch">
+        <where>
+            <if test="userid != null and userid != ''">
+                and userid like '%${userid}%'
+            </if>
+            <if test="formtag != null and formtag != ''">
+                and formtag like '%${formtag}%'
+            </if>
+        </where>
+    </sql>
+    
+</mapper>

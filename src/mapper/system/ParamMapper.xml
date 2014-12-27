@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.business.system.dao.ParamDao">
+    
+    <select id="exists" resultType="int">
+		select count(id) from system_param where id = 'SYS'
+    </select>
+    
+    <insert id="initialize">
+	    insert into system_param (id, visits) values ('SYS', 0)
+	</insert>
+	
+	<update id="visits">
+	    update system_param set visits = visits + 1 where id = 'SYS'
+	</update>
+    
+    <select id="get" resultType="ParamEntity">
+		select * from system_param where id = 'SYS'
+    </select>
+    
+    <insert id="save" parameterType="ParamEntity">
+	    update system_param
+	    <set>
+	      <if test="usefullife != null" >
+	        usefullife = #{usefullife},
+	      </if>
+	      <if test="appname != null" >
+	        appname = #{appname},
+	      </if>
+	      <if test="version != null" >
+	        version = #{version},
+	      </if>
+          <if test="usercompany != null" >
+	        usercompany = #{usercompany},
+	      </if>
+	      <if test="softcompany != null" >
+	        softcompany = #{softcompany},
+	      </if>
+	      <if test="phone != null" >
+	        phone = #{phone},
+	      </if>
+	      <if test="system != null" >
+	        system = #{system},
+	      </if>
+	      <if test="pop3 != null" >
+	        pop3 = #{pop3},
+	      </if>
+	      <if test="stmp != null" >
+	        stmp = #{stmp},
+	      </if>
+	      <if test="login != null" >
+	        login = #{login},
+	      </if>
+	      <if test="pass != null" >
+	        pass = #{pass},
+	      </if>
+	      <if test="visits != null" >
+	        visits = #{visits},
+	      </if>
+	    </set>
+	    where id = 'SYS'
+	</insert>
+    
+</mapper>

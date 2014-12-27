@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.business.report.dao.UserroleDao">
+
+    <select id="selectAll" parameterType="Map" resultType="UserroleEntity">
+        select * from system_user_role
+        <include refid="whereSearch" />
+    </select>
+
+    <sql id="whereSearch">
+        <where>
+            <if test="userid != null and userid != ''">
+                and userid like '%${userid}%'
+            </if>
+            <if test="username != null and username != ''">
+                and username like '%${username}%'
+            </if>
+            <if test="deptname != null and deptname != ''">
+                and deptname like '%${deptname}%'
+            </if>
+            <if test="positionname != null and positionname != ''">
+                and positionname like '%${positionname}%'
+            </if>
+            <if test="rolenames != null and rolenames != ''">
+                and rolenames like '%${rolenames}%'
+            </if>
+            <if test="mobilephone != null and mobilephone != ''">
+                and mobilephone like '%${mobilephone}%'
+            </if>
+            <if test="islock != null and islock != ''">
+                and islock like '%${islock}%'
+            </if>
+            <if test="usertype != null and usertype != ''">
+                and usertype like '%${usertype}%'
+            </if>
+            <if test="createusername != null and createusername != ''">
+                and createusername like '%${createusername}%'
+            </if>
+        </where>
+    </sql>
+
+</mapper>

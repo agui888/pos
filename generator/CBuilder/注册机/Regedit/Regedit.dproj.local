@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.118,E:\Workstation\SY\注册机\Regedit\Unit1.pas=E:\Workstation\SY\注册机\Regedit\Un_Pass.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.807,=E:\Workstation\SY\注册机\Regedit\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.006,E:\Workstation\SY\注册机\Regedit\XMLParse.pas=E:\Workstation\SY\注册机\Regedit\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.008,=E:\Workstation\SY\注册机\Regedit\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.528,I:\CBuilder\注册机\Regedit\XMLParse.pas=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.118,E:\Workstation\SY\注册机\Regedit\Unit1.dfm=E:\Workstation\SY\注册机\Regedit\Un_Pass.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.636,I:\CBuilder\注册机\Regedit\Un_Pass.pas=</Transaction>
+  </Transactions>
+</BorlandProject>

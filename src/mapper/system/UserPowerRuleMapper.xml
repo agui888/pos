@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.business.system.dao.UserPowerRuleDao">
+
+    <insert id="insert" parameterType="UserPowerRuleEntity" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="String" keyProperty="id" order="BEFORE">
+            select to_char(sysdate, 'yymmdd') || system_user_power_rule_seq.nextval from dual
+        </selectKey>
+        insert into system_user_power_rule
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="userpowerid != null">
+                userpowerid,
+            </if>
+            <if test="managepowerruleid2 != null">
+                managepowerruleid2,
+            </if>
+            <if test="checked2 != null">
+                checked2,
+            </if>
+            <if test="flag2 != null">
+                flag2,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="userpowerid != null">
+                #{userpowerid},
+            </if>
+            <if test="managepowerruleid2 != null">
+                #{managepowerruleid2},
+            </if>
+            <if test="checked2 != null">
+                #{checked2},
+            </if>
+            <if test="flag2 != null">
+                #{flag2},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="UserPowerRuleEntity">
+        update system_user_power_rule
+        <set>
+            <if test="userpowerid != null">
+                userpowerid = #{userpowerid},
+            </if>
+            <if test="managepowerruleid2 != null">
+                managepowerruleid2 = #{managepowerruleid2},
+            </if>
+            <if test="checked2 != null">
+                checked2 = #{checked2},
+            </if>
+            <if test="flag2 != null">
+                flag2 = #{flag2},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

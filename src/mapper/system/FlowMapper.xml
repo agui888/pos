@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.business.system.dao.FlowDao">
+
+    <insert id="insert" parameterType="FlowEntity" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="String" keyProperty="id" order="BEFORE">
+            select to_char(sysdate, 'yymmdd') || system_flow_seq.nextval from dual
+        </selectKey>
+        insert into system_flow
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="colid != null">
+                colid,
+            </if>
+            <if test="nodename != null">
+                nodename,
+            </if>
+            <if test="nodeflag != null">
+                nodeflag,
+            </if>
+            <if test="condition != null">
+                condition,
+            </if>
+            <if test="designateuserids != null">
+                designateuserids,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="colid != null">
+                #{colid},
+            </if>
+            <if test="nodename != null">
+                #{nodename},
+            </if>
+            <if test="nodeflag != null">
+                #{nodeflag},
+            </if>
+            <if test="condition != null">
+                #{condition},
+            </if>
+            <if test="designateuserids != null">
+                #{designateuserids},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="FlowEntity">
+        update system_flow
+        <set>
+            <if test="colid != null">
+                colid = #{colid},
+            </if>
+            <if test="nodename != null">
+                nodename = #{nodename},
+            </if>
+            <if test="nodeflag != null">
+                nodeflag = #{nodeflag},
+            </if>
+            <if test="condition != null">
+                condition = #{condition},
+            </if>
+            <if test="designateuserids != null">
+                designateuserids = #{designateuserids},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="validate" resultType="int">
+        select count(*) as count from system_flow
+        <where>
+            <if test="idValue != null and idValue != ''">
+                 and id &lt;&gt; #{idValue}
+            </if>
+            and ${name} = #{value}
+        </where>
+    </select>
+
+    <select id="exists" parameterType="FlowEntity" resultType="int">
+        select count(*) as count from system_flow
+        <where>
+            <if test="id != null and id != ''">
+                and id &lt;&gt; #{id}
+            </if>
+            and nodename = #{nodename} 
+        </where>
+    </select>
+
+    <delete id="deleteById" parameterType="String">
+        delete from system_flow where id = #{id}
+    </delete>
+
+    <select id="selectById" parameterType="String" resultType="FlowEntity">
+        select * from system_flow where id = #{id}
+    </select>
+
+    <select id="selectAll" parameterType="Map" resultType="FlowEntity">
+        select * from system_flow
+        <include refid="whereSearch" />
+    </select>
+
+    <select id="count" parameterType="Map" resultType="int">
+        select count(*) from system_flow
+        <include refid="whereSearch" />
+    </select>
+
+    <sql id="whereSearch">
+        <where>
+            <if test="nodename != null and nodename != ''">
+                and nodename like '%${nodename}%'
+            </if>
+        </where>
+    </sql>
+    
+    
+    
+    
+	<select id="getComboList" resultType="Map">
+		select id, nodename as text from system_flow order by colid
+	</select>
+	
+	<delete id="synchronizationMenu">
+		delete 
+		from system_flow_detail 
+		where menugroupid not in (
+			select menugroupid from system_menu where menugroupid is not null
+		)
+	</delete> 
+	
+	<select id="existsDetail" parameterType="String" resultType="int">
+		select count(id) 
+		from system_flow_detail 
+		where pid = #{id} and menugroupid = #{menugroupid}
+	</select>     
+
+</mapper>

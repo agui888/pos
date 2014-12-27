@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.business.system.dao.MenuDao">
+
+    <!-- CUDR 模板配置 Begin -->
+	<insert id="insert" parameterType="MenuEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into system_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="sid != null">
+                sid,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="colid != null">
+                colid,
+            </if>
+            <if test="menu != null">
+                menu,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="ico != null">
+                ico,
+            </if>
+            <if test="power != null">
+                power,
+            </if>
+            <if test="write != null">
+                write,
+            </if>
+            <if test="menugroupid != null">
+                menugroupid,
+            </if>
+            <if test="menugroupname != null">
+                menugroupname,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            delflag,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="sid != null">
+                #{sid},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="colid != null">
+                #{colid},
+            </if>
+            <if test="menu != null">
+                #{menu},
+            </if>
+            <if test="url != null">
+                #{url},
+            </if>
+            <if test="ico != null">
+                #{ico},
+            </if>
+            <if test="power != null">
+                #{power},
+            </if>
+            <if test="write != null">
+                #{write},
+            </if>
+            <if test="menugroupid != null">
+                #{menugroupid},
+            </if>
+            <if test="menugroupname != null">
+                #{menugroupname},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            0,
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="MenuEntity">
+        update system_menu
+        <set>
+            <if test="sid != null">
+                sid = #{sid},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="colid != null">
+                colid = #{colid},
+            </if>
+            <if test="menu != null">
+                menu = #{menu},
+            </if>
+            <if test="url != null">
+                url = #{url},
+            </if>
+            <if test="ico != null">
+                ico = #{ico},
+            </if>
+            <if test="power != null">
+                power = #{power},
+            </if>
+            <if test="write != null">
+                write = #{write},
+            </if>
+            <if test="menugroupid != null">
+                menugroupid = #{menugroupid},
+            </if>
+            <if test="menugroupname != null">
+                menugroupname = #{menugroupname},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="validate" resultType="int">
+        select 0 as count from dual
+    </select>
+
+    <select id="exists" parameterType="MenuEntity" resultType="int">
+        select 0 as count from dual
+    </select>
+
+    <delete id="deleteById" parameterType="String">
+        update system_menu set delflag = 1 where id = #{id}
+    </delete>
+
+    <select id="selectById" parameterType="String" resultType="MenuEntity">
+        select * from system_menu where id = #{id}
+    </select>
+
+    <select id="selectAll" parameterType="Map" resultType="MenuEntity">
+        select * from system_menu
+        <include refid="whereSearch" />
+    </select>
+
+    <select id="count" parameterType="Map" resultType="int">
+        select count(*) from system_menu
+        <include refid="whereSearch" />
+    </select>
+
+    <sql id="whereSearch">
+        <where>
+            delflag = 0
+            <if test="sid != null and sid != ''">
+                and sid like '%${sid}%'
+            </if>
+            <if test="type != null and type != ''">
+                and type like '%${type}%'
+            </if>
+            <if test="colid != null and colid != ''">
+                and colid like '%${colid}%'
+            </if>
+            <if test="menu != null and menu != ''">
+                and menu like '%${menu}%'
+            </if>
+            <if test="url != null and url != ''">
+                and url like '%${url}%'
+            </if>
+            <if test="ico != null and ico != ''">
+                and ico like '%${ico}%'
+            </if>
+            <if test="power != null and power != ''">
+                and power like '%${power}%'
+            </if>
+            <if test="write != null and write != ''">
+                and write like '%${write}%'
+            </if>
+            <if test="menugroupid != null and menugroupid != ''">
+                and menugroupid like '%${menugroupid}%'
+            </if>
+            <if test="menugroupname != null and menugroupname != ''">
+                and menugroupname like '%${menugroupname}%'
+            </if>
+        </where>
+    </sql>    
+    <!-- CUDR 模板配置 End -->
+    
+    
+    
+    <!-- 页面调用 Begin -->
+    
+    <!-- 基本 Menu方法(提抽所有菜单数据) -->
+    <select id="getMenuList" resultType="MenuEntity">
+		select * from system_menu where delflag = 0 order by colid, id
+    </select>
+    
+    
+    <!-- 多层菜单 Admin 2014-12-02 -->
+    <select id="getHomeMenuListAdmin" resultType="MenuEntity">
+	   select distinct * from (
+	          select c.* from system_menu c 
+	            where c.power = 0 and c.delflag = 0 and c.type in (${menutype}) 
+	          union 
+              select distinct b.* from system_manage_power a left join system_menu b on a.menuid = b.id 
+	            where a.roleid in (${roleids}) and a.ispower = 1 and b.type in (${menutype}) and b.delflag = 0
+	    ) t order by colid, id
+    </select> 
+    
+    <!-- 多层菜单 User 2014-12-02 -->
+    <select id="getHomeMenuListUser" resultType="MenuEntity">
+   		select distinct * from (
+			 select c.* from system_menu c 
+				where c.power = 0 and c.delflag = 0 and c.type in (${menutype})
+			 union 
+	 	  	 select distinct b.* from system_user_power a left join system_menu b on a.menuid2 = b.id 
+		        where a.roleid2 in (${roleids}) and a.ispower2 = 1 and b.type in (${menutype}) and b.delflag = 0
+		) t order by colid, id
+    </select>
+    
+    
+    <!-- 权限规则 Rule获取指定的菜单Entity -->
+    <select id="getRuleMenuEntity" resultType="MenuEntity">
+		select * from system_menu 
+			where id = #{id} and delflag = 0
+    </select>
+    
+    <!-- 权限规则 Rule的菜单JSON加载 -->
+    <select id="getRuleMenuList" resultType="MenuEntity">
+		select * from system_menu 
+			where type not in (${notType}) and delflag = 0 order by colid, id
+    </select>
+    
+    <!-- 返回工作流菜单 -->
+    <select id="getMenuGroupList" resultType="java.util.HashMap">
+        select t.menugroupid, t.menugroupname 
+        from system_menu t 
+        where t.menugroupid is not null 
+        group by t.menugroupid, t.menugroupname 
+        order by t.menugroupname
+    </select>
+    
+    <!-- 页面调用 End -->
+
+</mapper>

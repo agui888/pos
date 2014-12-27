@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.business.report.dao.AccessDao">
+
+    <select id="selectAll" parameterType="Map" resultType="AccessEntity">
+        select * from system_access
+        <include refid="whereSearch" />
+    </select>
+
+    <sql id="whereSearch">
+        <where>
+            <if test="sdname != null and sdname != ''">
+                and sdname like '%${sdname}%'
+            </if>
+            <if test="num != null and num != ''">
+                and num like '%${num}%'
+            </if>
+            <if test="userip != null and userip != ''">
+                and userip like '%${userip}%'
+            </if>
+        </where>
+    </sql>
+
+</mapper>

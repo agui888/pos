@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.business.system.dao.DictDao">
+
+    <insert id="insert" parameterType="DictEntity" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="String" keyProperty="id" order="BEFORE">
+            select to_char(sysdate, 'yymmdd') || system_dict_seq.nextval from dual
+        </selectKey>
+        insert into system_dict
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="dicttype != null">
+                dicttype,
+            </if>
+            <if test="dictcode != null">
+                dictcode,
+            </if>
+            <if test="dictname != null">
+                dictname,
+            </if>
+            rowtime,
+            rowver,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="dicttype != null">
+                #{dicttype},
+            </if>
+            <if test="dictcode != null">
+                #{dictcode},
+            </if>
+            <if test="dictname != null">
+                #{dictname},
+            </if>
+            sysdate,
+            0,
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="DictEntity">
+        update system_dict
+        <set>
+            <if test="dicttype != null">
+                dicttype = #{dicttype},
+            </if>
+            <if test="dictcode != null">
+                dictcode = #{dictcode},
+            </if>
+            <if test="dictname != null">
+                dictname = #{dictname},
+            </if>
+            rowtime = sysdate,
+            rowver = rowver + 1,
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="validate" resultType="int">
+        select 0 as count from dual
+    </select>
+
+    <select id="exists" parameterType="DictEntity" resultType="int">
+        select 0 as count from dual
+    </select>
+
+    <delete id="deleteById" parameterType="String">
+        delete from system_dict where id = #{id}
+    </delete>
+
+    <select id="selectById" parameterType="String" resultType="DictEntity">
+        select * from system_dict where id = #{id}
+    </select>
+
+    <select id="selectAll" parameterType="Map" resultType="DictEntity">
+        select * from system_dict
+        <include refid="whereSearch" />
+    </select>
+
+    <select id="count" parameterType="Map" resultType="int">
+        select count(*) from system_dict
+        <include refid="whereSearch" />
+    </select>
+
+    <sql id="whereSearch">
+        <where>
+            <if test="dicttype != null and dicttype != ''">
+                and dicttype like '%${dicttype}%'
+            </if>
+            <if test="dictcode != null and dictcode != ''">
+                and dictcode like '%${dictcode}%'
+            </if>
+            <if test="dictname != null and dictname != ''">
+                and dictname like '%${dictname}%'
+            </if>
+        </where>
+    </sql>
+
+</mapper>

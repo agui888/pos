@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guime.base.dao.ServerDao">
+
+    <insert id="insert" parameterType="ServerEntity" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="String" keyProperty="id" order="BEFORE">
+            select to_char(sysdate, 'yymmdd') || base_server_seq.nextval from dual
+        </selectKey>
+        insert into base_server
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="servername != null">
+                servername,
+            </if>
+            <if test="datasource != null">
+                datasource,
+            </if>
+            <if test="ip != null">
+                ip,
+            </if>
+            <if test="port != null">
+                port,
+            </if>
+            <if test="sid != null">
+                sid,
+            </if>
+            <if test="oracleuser != null">
+                oracleuser,
+            </if>
+            <if test="oraclepassword != null">
+                oraclepassword,
+            </if>
+            <if test="use != null">
+                use,
+            </if>
+            delflag,
+            rowtime,
+            rowver,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="servername != null">
+                #{servername},
+            </if>
+            <if test="datasource != null">
+                #{datasource},
+            </if>
+            <if test="ip != null">
+                #{ip},
+            </if>
+            <if test="port != null">
+                #{port},
+            </if>
+            <if test="sid != null">
+                #{sid},
+            </if>
+            <if test="oracleuser != null">
+                #{oracleuser},
+            </if>
+            <if test="oraclepassword != null">
+                #{oraclepassword},
+            </if>
+            <if test="use != null">
+                #{use},
+            </if>
+            0,
+            sysdate,
+            0,
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="ServerEntity">
+        update base_server
+        <set>
+            <if test="servername != null">
+                servername = #{servername},
+            </if>
+            <if test="datasource != null">
+                datasource = #{datasource},
+            </if>
+            <if test="ip != null">
+                ip = #{ip},
+            </if>
+            <if test="port != null">
+                port = #{port},
+            </if>
+            <if test="sid != null">
+                sid = #{sid},
+            </if>
+            <if test="oracleuser != null">
+                oracleuser = #{oracleuser},
+            </if>
+            <if test="oraclepassword != null">
+                oraclepassword = #{oraclepassword},
+            </if>
+            <if test="use != null">
+                use = #{use},
+            </if>
+            rowtime = sysdate,
+            rowver = rowver + 1,
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="validate" resultType="int">
+        select count(*) as count from base_server
+        <where>
+            <if test="idValue != null and idValue != ''">
+                 and id &lt;&gt; #{idValue}
+            </if>
+            and ${name} = #{value}
+            and delflag = 0
+        </where>
+    </select>
+
+    <select id="exists" parameterType="ServerEntity" resultType="int">
+        select count(*) as count from base_server
+        <where>
+            <if test="id != null and id != ''">
+                and id &lt;&gt; #{id}
+            </if>
+            and datasource = #{datasource} 
+            and delflag = 0
+        </where>
+    </select>
+
+    <delete id="deleteById" parameterType="String">
+        update base_server set delflag = 1 where id = #{id}
+    </delete>
+
+    <select id="selectById" parameterType="String" resultType="ServerEntity">
+        select * from base_server where id = #{id}
+    </select>
+
+    <select id="selectAll" parameterType="Map" resultType="ServerEntity">
+        select * from base_server
+        <include refid="whereSearch" />
+    </select>
+
+    <select id="count" parameterType="Map" resultType="int">
+        select count(*) from base_server
+        <include refid="whereSearch" />
+    </select>
+
+    <sql id="whereSearch">
+        <where>
+            delflag = 0
+            <if test="servername != null and servername != ''">
+                and servername like '%${servername}%'
+            </if>
+        </where>
+    </sql>
+    
+    
+    <select id="getNoUseServerList" parameterType="String" resultType="ServerEntity">
+    	select * from (
+	        select * from base_server where datasource = #{useDataSource}
+	        union
+	        select * from base_server where use = 0 and delflag = 0
+        ) t order by id 
+    </select>
+
+	<update id="setUseServer" parameterType="String">
+        update base_server set use = 1 where datasource = #{datasource}
+    </update>
+    
+    <update id="setNoUseServer" parameterType="String">
+        update base_server set use = 0 where datasource = #{datasource}
+    </update>
+    
+</mapper>

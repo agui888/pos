@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+    
+<struts>
+	<package name="base" extends="core" namespace="/guime/base">
+	
+		<action name="city_*" class="com.guime.base.action.CityAction" method="{1}">
+	        <result name="enter">/web/ace/index.jsp</result>
+	    </action>
+	    
+        <action name="server_*" class="com.guime.base.action.ServerAction" method="{1}">
+	        <result name="enter">/web/ace/index.jsp</result>
+	    </action>
+		
+		<action name="store_*" class="com.guime.base.action.StoreAction" method="{1}">
+	        <result name="enter">/web/ace/index.jsp</result>
+	        <result name="append">/web/ace/index.jsp</result>
+	        <result name="modify">/web/ace/index.jsp</result>
+	        <result name="view">/web/ace/index.jsp</result>
+	
+	        <result name="savelist" type="redirect">/guime/base/store_enter.action?menuid=${menuid}</result>
+	        <result name="saveappend" type="redirect">/guime/base/store_append.action?menuid=${menuid}</result>
+	        <result name="checkform">/web/ace/index.jsp</result>
+	    </action>
+	    
+	</package>
+</struts>

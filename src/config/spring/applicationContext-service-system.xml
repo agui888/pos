@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+						http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+						http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<bean id="MenuService" class="com.web.business.system.service.impl.MenuServiceImpl" p:baseDao-ref="menuDao" p:menuDao-ref="menuDao" />					
+	
+	<bean id="BaseRoleService" class="com.web.business.system.service.impl.BaseRoleServiceImpl" p:baseDao-ref="baseRoleDao" p:baseRoleDao-ref="baseRoleDao" />
+	<bean id="ManageRoleService" class="com.web.business.system.service.impl.ManageRoleServiceImpl" p:baseDao-ref="manageRoleDao" p:manageRoleDao-ref="manageRoleDao" />
+	
+	<bean id="BaseUserService" class="com.web.business.system.service.impl.BaseUserServiceImpl" p:baseDao-ref="baseUserDao" p:baseUserDao-ref="baseUserDao" />
+	<bean id="ManageUserService" class="com.web.business.system.service.impl.ManageUserServiceImpl" p:baseDao-ref="manageUserDao" p:manageUserDao-ref="manageUserDao" />
+	
+	<bean id="RuleService" class="com.web.business.system.service.impl.RuleServiceImpl" p:baseDao-ref="ruleDao" p:ruleDao-ref="ruleDao" />
+	<bean id="DictService" class="com.web.business.system.service.impl.DictServiceImpl" p:baseDao-ref="dictDao" p:dictDao-ref="dictDao" />
+	<bean id="ParamService" class="com.web.business.system.service.impl.ParamServiceImpl" p:paramDao-ref="paramDao" />
+	<bean id="OracleService" class="com.web.business.system.service.impl.OracleServiceImpl" p:oracleDao-ref="oracleDao" />
+	<bean id="GridService" class="com.web.business.system.service.impl.GridServiceImpl" p:gridDao-ref="gridDao" />
+	<bean id="DeptService" class="com.web.business.system.service.impl.DeptServiceImpl" p:baseDao-ref="deptDao" p:deptDao-ref="deptDao" />
+	<bean id="PositionService" class="com.web.business.system.service.impl.PositionServiceImpl" p:baseDao-ref="positionDao" p:positionDao-ref="positionDao" />
+	<bean id="FlowService" class="com.web.business.system.service.impl.FlowServiceImpl" p:baseDao-ref="flowDao" p:flowDao-ref="flowDao" />
+	
+	<bean id="ManagePowerService" class="com.web.business.system.service.impl.ManagePowerServiceImpl" p:managePowerDao-ref="managePowerDao" p:managePowerRuleDao-ref="managePowerRuleDao" />
+	<bean id="UserPowerService" class="com.web.business.system.service.impl.UserPowerServiceImpl" p:userPowerDao-ref="userPowerDao" p:userPowerRuleDao-ref="userPowerRuleDao" />
+	
+	<bean id="LogsService" class="com.web.business.system.service.impl.LogsServiceImpl" p:logsDao-ref="logsDao" />
+	<bean id="LogsAop" class="com.web.api.core.logs.impl.LogsAopImpl" p:logsDao-ref="logsDao" />
+	
+</beans>

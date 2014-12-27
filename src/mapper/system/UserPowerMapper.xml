@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.business.system.dao.UserPowerDao">
+
+    <insert id="insert" parameterType="UserPowerEntity" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="String" keyProperty="id" order="BEFORE">
+            select to_char(sysdate, 'yymmdd') || system_user_power_seq.nextval from dual
+        </selectKey>
+        insert into system_user_power
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="managepowerid2 != null">
+                managepowerid2,
+            </if>
+            <if test="roleid2 != null">
+                roleid2,
+            </if>
+            <if test="menuid2 != null">
+                menuid2,
+            </if>
+            <if test="ispower2 != null">
+                ispower2,
+            </if>
+            <if test="managepowerwrite2 != null">
+                managepowerwrite2,
+            </if>
+            <if test="iswrite2 != null">
+                iswrite2,
+            </if>
+            <if test="flag2 != null">
+                flag2,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="managepowerid2 != null">
+                #{managepowerid2},
+            </if>
+            <if test="roleid2 != null">
+                #{roleid2},
+            </if>
+            <if test="menuid2 != null">
+                #{menuid2},
+            </if>
+            <if test="ispower2 != null">
+                #{ispower2},
+            </if>
+            <if test="managepowerwrite2 != null">
+                #{managepowerwrite2},
+            </if>
+            <if test="iswrite2 != null">
+                #{iswrite2},
+            </if>
+            <if test="flag2 != null">
+                #{flag2},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="UserPowerEntity">
+        update system_user_power
+        <set>
+            <if test="managepowerid2 != null">
+                managepowerid2 = #{managepowerid2},
+            </if>
+            <if test="roleid2 != null">
+                roleid2 = #{roleid2},
+            </if>
+            <if test="menuid2 != null">
+                menuid2 = #{menuid2},
+            </if>
+            <if test="ispower2 != null">
+                ispower2 = #{ispower2},
+            </if>
+            <if test="managepowerwrite2 != null">
+                managepowerwrite2 = #{managepowerwrite2},
+            </if>
+            <if test="iswrite2 != null">
+                iswrite2 = #{iswrite2},
+            </if>
+            <if test="flag2 != null">
+                flag2 = #{flag2},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <select id="accessUserPower" parameterType="String" resultType="java.util.HashMap">
+		select 
+		  t1.power as "power", 
+		  t2.ispower2 as "ispower", 
+		  t3.iswrite2 as "iswrite",
+		  t4.rulesql as "rulesql"
+		from system_menu t1 
+		  left join (
+		    select ispower2, menuid2 from system_user_power where roleid2 in (${roleids}) and menuid2 = #{menuid} and ispower2 = 1 group by ispower2, menuid2
+		  ) t2 on t1.id = t2.menuid2
+		  left join (
+		    select iswrite2, menuid2 from system_user_power where roleid2 in (${roleids}) and menuid2 = #{menuid} and ispower2 = 1 and iswrite2 = 1 group by iswrite2, menuid2
+		  ) t3 on t1.id = t3.menuid2
+		  left join (
+		    select * from ( select row_.*, rownum rowno from ( 
+		        select aa.rulesql, aa.menuid from system_rule aa, (
+		            select b.ruleid, a.* 
+		            from system_user_power_rule a 
+		            left join system_manage_power_rule b on a.managepowerruleid2 = b.id 
+		            where a.userpowerid in (select id from system_user_power where roleid2 in (${roleids}) and menuid2 = #{menuid} and ispower2 = 1) and a.checked2 = 1
+		        ) bb where aa.id = bb.ruleid order by aa.num asc
+		     ) row_ ) where rowno = 1
+		  ) t4 on t1.id = t4.menuid
+		where t1.id = #{menuid} and t1.delflag = 0    
+    </select>
+    
+    <select id="accessManagePower" parameterType="String" resultType="java.util.HashMap">
+		select 
+		  t1.power as "power", 
+		  t2.ispower as "ispower", 
+		  t3.iswrite as "iswrite",
+		  '' as "rulesql"
+		from system_menu t1 
+		  left join (
+		    select ispower, menuid from system_manage_power where roleid in (${roleids}) and menuid = #{menuid} and ispower = 1 group by ispower, menuid
+		  ) t2 on t1.id = t2.menuid
+		  left join (
+		    select iswrite, menuid from system_manage_power where roleid in (${roleids}) and menuid = #{menuid} and ispower = 1 and iswrite = 1 group by iswrite, menuid
+		  ) t3 on t1.id = t3.menuid
+		where t1.id = #{menuid} and t1.delflag = 0    
+    </select>
+    
+    <select id="accessUserRuleSQL" parameterType="String" resultType="String">
+    	select rulesql from (
+			select aa.rulesql, rownum as row_id from system_rule aa, (
+	            select b.ruleid, a.* from system_user_power_rule a left join system_manage_power_rule b on a.managepowerruleid2 = b.id 
+				where a.userpowerid in (
+					select id from system_user_power where roleid2 in (${roleids}) and menuid2 = #{menuid} and ispower2 = 1
+				) and a.checked2 = 1 
+			) bb where aa.id = bb.ruleid order by aa.num asc
+		) t where t.row_id = 1
+    </select>
+    
+    <select id="accessManageRuleSQL" parameterType="String" resultType="String">
+        select rulesql from (
+        	select a.rulesql, rownum as row_id from system_rule a, system_manage_power_rule b where b.managepowerid in (
+			 	select id from system_manage_power where roleid = #{roleids} and menuid = #{menuid} and ispower = 1
+			) and a.id = b.ruleid and b.checked = 1 and a.menuid = #{menuid} order by num asc
+		) t where t.row_id = 1
+	</select>
+    
+    <!-- UserPowerAction 权限菜单引用方法  (zTree.js 引用的 JSON) -->
+    <select id="getUserPowerMenuList" parameterType="String" resultType="java.util.HashMap">
+		select * from (
+			select 
+				a.id as "userpowerid", 
+				a.managepowerid2 as "managepowerid", 
+				a.menuid2 as "menuid", 
+				b.sid as "sid", 
+				b.menu as "name", 
+				#{path} || b.ico as "icon", 
+				b.type as "type", 
+				case when ispower2 = 1 then 
+					'true' 
+				else 
+					'false' 
+				end "checked", 
+				case when b.url is null then 
+					'true' 
+				else 
+					'false' 
+				end "iframesrc", 
+				'true' as "open" 
+			from system_user_power a left join system_menu b on a.menuid2 = b.id 
+			where a.roleid2 = #{roleid} order by b.colid, b.id
+		) temp 
+		where "type" &lt;&gt; 'SYS'
+    </select>
+
+	<!-- Begin -->
+    <update id="updatePowerEntityFlag" parameterType="String">
+        update system_user_power set flag2 = 1 where roleid2 = #{userroleid}
+    </update>
+    
+    <select id="getPowerEntity" parameterType="String" resultType="UserPowerEntity">
+        select * from system_user_power where roleid2 = #{userroleid} and menuid2 = #{menuid} 
+    </select>
+    
+    <delete id="deletePowerEntityFlag" parameterType="String">
+        delete from system_user_power where flag2 = 1 and roleid2 = #{userroleid}
+    </delete>
+    <!-- End -->
+    
+    <!-- Begin -->
+	<update id="updatePowerRuleEntityFlag" parameterType="String">
+        update system_user_power_rule set flag2 = 1 where userpowerid = #{userpowerid}
+    </update>  
+    
+    <select id="getPowerEntityExists" parameterType="String" resultType="String">
+        select id from system_user_power where id = #{userpowerid}
+    </select>
+    
+    <select id="getPowerRuleEntity" parameterType="String" resultType="UserPowerRuleEntity">
+        select * from system_user_power_rule where userpowerid = #{userpowerid} and managepowerruleid2 = #{managepowerruleid2}
+    </select>
+    
+    <delete id="deletePowerRuleEntityFlag" parameterType="String">
+        delete from system_user_power_rule where flag2 = 1 and userpowerid = #{userpowerid}
+    </delete>
+    <!-- End -->
+    
+    <select id="getPowerRuleList" parameterType="String" resultType="Map">
+		select a.id as "id", 
+			   a.id as "ruleid", 
+			   a.userpowerid as "userpowerid", 
+			   a.checked2 as "checked", 
+			   b.rulename as "rulename", 
+			   b.num as "num", 
+			   b.remark as "remark"
+		from ( 
+		  select bb.id, bb.ruleid, aa.userpowerid, aa.checked2 
+		  from system_user_power_rule aa left join system_manage_power_rule bb on aa.managepowerruleid2 = bb.id 
+		  where aa.userpowerid = #{userpowerid}
+		) a left join system_rule b on a.ruleid = b.id 
+		order by a.id
+    </select>
+    
+    <select id="getUserPowerEntity" parameterType="String" resultType="UserPowerEntity">
+        select * from system_user_power where id = #{userpowerid}
+    </select>    
+    
+	<update id="setIspower2" parameterType="String">
+        update system_user_power set ispower2 = #{value} where id = #{id}
+    </update>
+    
+    <update id="setIswrite2" parameterType="String">
+        update system_user_power set iswrite2 = #{value} where id = #{id}
+    </update>
+    
+    <update id="initRuleChecked2" parameterType="String">
+        update system_user_power_rule set checked2 = 0 where userpowerid = #{userpowerid}
+    </update>
+        
+    <update id="setRuleChecked2" parameterType="String">
+        update system_user_power_rule set checked2 = #{value} where userpowerid = #{userpowerid} and managepowerruleid2 = #{ruleid}
+    </update>
+    
+</mapper>

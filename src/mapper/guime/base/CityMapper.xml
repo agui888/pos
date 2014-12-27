@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.guime.base.dao.CityDao">
+				   
+    <insert id="insert" parameterType="CityEntity" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="BigDecimal" keyProperty="id" order="BEFORE">
+            select base_city_seq.nextval from dual
+        </selectKey>
+        insert into base_city
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="pid != null">
+                pid,
+            </if>
+            <if test="cityname != null">
+                cityname,
+            </if>
+            <if test="colid != null">
+                colid,
+            </if>
+            delflag,
+            rowtime,
+            rowver,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="pid != null">
+                #{pid},
+            </if>
+            <if test="cityname != null">
+                #{cityname},
+            </if>
+            <if test="colid != null">
+                #{colid},
+            </if>
+            0,
+            sysdate,
+            0,
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="CityEntity">
+        update base_city
+        <set>
+            <if test="pid != null">
+                pid = #{pid},
+            </if>
+            <if test="cityname != null">
+                cityname = #{cityname},
+            </if>
+            <if test="colid != null">
+                colid = #{colid},
+            </if>
+            rowtime = sysdate,
+            rowver = rowver + 1,
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="validate" resultType="int">
+        select count(*) as count from base_city
+        <where>
+            <if test="idValue != null and idValue != ''">
+                 and id &lt;&gt; #{idValue}
+            </if>
+            and ${name} = #{value}
+            and delflag = 0
+        </where>
+    </select>
+
+    <select id="exists" parameterType="CityEntity" resultType="int">
+        select count(*) as count from base_city
+        <where>
+            <if test="id != null and id != ''">
+                and id &lt;&gt; #{id}
+            </if>
+            and cityname = #{cityname} 
+            and delflag = 0
+        </where>
+    </select>
+
+    <delete id="deleteById" parameterType="String">
+        update base_city set delflag = 1 where id = #{id}
+    </delete>
+
+    <select id="selectById" parameterType="String" resultType="CityEntity">
+        select * from base_city where id = #{id}
+    </select>
+
+    <select id="selectAll" parameterType="Map" resultType="CityEntity">
+        select * from base_city
+        <include refid="whereSearch" />
+    </select>
+
+    <select id="count" parameterType="Map" resultType="int">
+        select count(*) from base_city
+        <include refid="whereSearch" />
+    </select>
+
+    <sql id="whereSearch">
+        <where>
+            delflag = 0
+            <if test="cityname != null and cityname != ''">
+           	 connect by prior pid = id
+                and cityname like '%${cityname}%'
+            </if>
+        </where>
+    </sql>
+    
+    <select id="getComboBox" resultType="Map">
+		select distinct to_char(id) as id, 
+		       case to_char(pid) 
+		          when '0' then '' 
+		          else to_char(pid) 
+		       end as pid, 
+		       cityname as text,
+		       colid
+		from base_city 
+		where delflag = 0 
+		order by colid, id, pid
+	</select>
+	
+	<select id="validatedParent" resultType="String">
+		select cityname from (
+			select id, cityname 
+			from base_city 
+			where delflag = 0 connect by prior id = pid start with id = ${modifyid}
+		) t where id = ${comboboxid}		
+	</select>
+	
+	<select id="validatedDelete" resultType="int">
+		select count(*) as value from base_city where pid = ${selectid} and delflag = 0 
+	</select>    
+
+</mapper>

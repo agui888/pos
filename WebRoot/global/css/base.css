@@ -1,0 +1,75 @@
+html {
+    scrollbar-3dlight-color:#cccccc; 
+    scrollbar-arrow-color:#000000; 
+    scrollbar-base-color:#cccccc; 
+    scrollbar-darkshadow-color:#ffffff; 
+    scrollbar-face-color:#f6f6f6; 
+    scrollbar-highlight-color:#f6f6f6; 
+    scrollbar-shadow-color:#cccccc
+}
+
+input, select, textarea, table, div, span, ul, li, a, p, label {
+	font: 13px '微软雅黑',arial,sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.WText {
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	color: #FFFFFF;
+	font: 13px '微软雅黑',arial,sans-serif;
+}
+
+.BText {
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	color: #000000;
+	font: 13px '微软雅黑',arial,sans-serif;
+}
+
+.LText {
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	color: #223D6A;
+	font: 13px '微软雅黑',arial,sans-serif;
+}
+
+.GText {
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	color: #7F7F7F;
+	font: 13px '微软雅黑',arial,sans-serif;
+}
+
+.RText {
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	color: #FF0000;
+	font: 13px '微软雅黑',arial,sans-serif;
+}
+
+.YText {
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	color: #FFFF00;
+	font: 13px '微软雅黑',arial,sans-serif;
+}

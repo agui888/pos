@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.business.system.dao.BaseUserDao">
+
+    <insert id="insert" parameterType="BaseUserEntity" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="String" keyProperty="id" order="BEFORE">
+            select to_char(sysdate, 'yymmdd') || system_user_seq.nextval from dual
+        </selectKey>
+        insert into system_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="userid != null">
+                userid,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="deptid != null">
+                deptid,
+            </if>
+            <if test="positionid != null">
+                positionid,
+            </if>
+            <if test="roleids != null">
+                roleids,
+            </if>
+            <if test="rolenames != null">
+                rolenames,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="officephone != null">
+                officephone,
+            </if>
+            <if test="officeaddress != null">
+                officeaddress,
+            </if>
+            <if test="homephone != null">
+                homephone,
+            </if>
+            <if test="homeaddress != null">
+                homeaddress,
+            </if>
+            <if test="mobilephone != null">
+                mobilephone,
+            </if>
+            <if test="islock != null">
+                islock,
+            </if>
+            <if test="createuserid != null">
+                createuserid,
+            </if>
+            <if test="colid != null">
+                colid,
+            </if>
+            <if test="manageuserid != null">
+                manageuserid,
+            </if>
+            usertype,
+            delflag,
+            rowtime,
+            rowver,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="userid != null">
+                #{userid},
+            </if>
+            <if test="username != null">
+                #{username},
+            </if>
+            <if test="sex != null">
+                #{sex},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+            <if test="deptid != null">
+                #{deptid},
+            </if>
+            <if test="positionid != null">
+                #{positionid},
+            </if>
+            <if test="roleids != null">
+                #{roleids},
+            </if>
+            <if test="rolenames != null">
+                #{rolenames},
+            </if>
+            <if test="email != null">
+                #{email},
+            </if>
+            <if test="officephone != null">
+                #{officephone},
+            </if>
+            <if test="officeaddress != null">
+                #{officeaddress},
+            </if>
+            <if test="homephone != null">
+                #{homephone},
+            </if>
+            <if test="homeaddress != null">
+                #{homeaddress},
+            </if>
+            <if test="mobilephone != null">
+                #{mobilephone},
+            </if>
+            <if test="islock != null">
+                #{islock},
+            </if>
+            <if test="createuserid != null">
+                #{createuserid},
+            </if>
+            <if test="colid != null">
+                #{colid},
+            </if>
+            <if test="manageuserid != null">
+                #{manageuserid},
+            </if>
+            0,
+            0,
+            sysdate,
+            0,
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="BaseUserEntity">
+        update system_user
+        <set>
+            <if test="userid != null">
+                userid = #{userid},
+            </if>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="deptid != null">
+                deptid = #{deptid},
+            </if>
+            <if test="positionid != null">
+                positionid = #{positionid},
+            </if>
+            <if test="roleids != null">
+                roleids = #{roleids},
+            </if>
+            <if test="rolenames != null">
+                rolenames = #{rolenames},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="officephone != null">
+                officephone = #{officephone},
+            </if>
+            <if test="officeaddress != null">
+                officeaddress = #{officeaddress},
+            </if>
+            <if test="homephone != null">
+                homephone = #{homephone},
+            </if>
+            <if test="homeaddress != null">
+                homeaddress = #{homeaddress},
+            </if>
+            <if test="mobilephone != null">
+                mobilephone = #{mobilephone},
+            </if>
+            <if test="islock != null">
+                islock = #{islock},
+            </if>
+            <if test="createuserid != null">
+                createuserid = #{createuserid},
+            </if>
+            <if test="colid != null">
+                colid = #{colid},
+            </if>
+            <if test="manageuserid != null">
+                manageuserid = #{manageuserid},
+            </if>
+            rowtime = sysdate,
+            rowver = rowver + 1,
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="validate" resultType="int">
+        select count(*) as count from system_user
+        <where>
+            <if test="idValue != null and idValue != ''">
+                 and id &lt;&gt; #{idValue}
+            </if>
+            and ${name} = #{value}
+            and delflag = 0
+        </where>
+    </select>
+
+    <select id="exists" parameterType="BaseUserEntity" resultType="int">
+        select count(*) as count from system_user
+        <where>
+            <if test="id != null and id != ''">
+                and id &lt;&gt; #{id}
+            </if>
+            and userid = #{userid} 
+            and delflag = 0
+        </where>
+    </select>
+
+    <delete id="deleteById" parameterType="String">
+        update system_user set delflag = 1 where id = #{id}
+    </delete>
+
+    <select id="selectById" parameterType="String" resultType="BaseUserEntity">
+        select t1.* from system_user t1 where t1.id = #{id}
+    </select>
+
+    <select id="selectAll" parameterType="Map" resultMap="baseUserEntityMap">
+        select t1.id as "t1_id", 
+               t1.*,
+               t2.id as "t2_id", 
+               t2.positionname as "t2_positionname",
+               t2.remark as "t2_remark",
+               t2.delflag as "t2_defllag",
+               t2.rowtime as "t2_rowtime",
+               t2.rowver as "t2_rowver",
+               t3.id as "t3_id",
+               t3.username as "t3_username",
+               t4.id as "t4_id",
+               t4.deptname as "t4_deptname"
+        from system_user t1 left join system_position t2 on t1.positionid = t2.id 
+             left join system_user t3 on t1.manageuserid = t3.id
+             left join system_dept t4 on t1.deptid = t4.id
+        <include refid="whereSearch" />
+    </select>
+
+    <select id="count" parameterType="Map" resultType="int">
+        select count(*) from system_user t1
+        <include refid="whereSearch" />
+    </select>
+    
+    <sql id="whereSearch">
+        <where>
+            t1.userid &lt;&gt; 'admin' and t1.usertype = 0 and t1.delflag = 0 and t1.createuserid = '${createuserid}'
+            <if test="userid != null and userid != ''">
+                and t1.userid like '%${userid}%'
+            </if>
+            <if test="username != null and username != ''">
+                and t1.username like '%${username}%'
+            </if>
+        </where>
+    </sql>
+    
+    <resultMap type="BaseUserEntity" id="baseUserEntityMap" autoMapping="true">
+		<id column="t1_id" property="id"/>
+		<association property="positionEntity" javaType="PositionEntity">
+			<id column="t2_id" property="id"/>
+			<result column="t2_positionname" property="positionname" />
+			<result column="t2_remark" property="remark" />
+			<result column="t2_delflag" property="delflag" />
+			<result column="t2_rowtime" property="rowtime" />
+			<result column="t2_rowver" property="rowver" />
+		</association>
+		<association property="manageUserEntity" javaType="BaseUserEntity">
+			<id column="t3_id" property="id"/>
+			<result column="t3_username" property="username" />
+		</association>
+		<association property="deptEntity" javaType="DeptEntity">
+			<id column="t4_id" property="id"/>
+			<result column="t4_deptname" property="deptname" />
+		</association>
+	</resultMap>
+    
+    <select id="login" parameterType="String" resultType="BaseUserEntity">
+		select * from system_user where userid = #{userid} and islock = 0 and delflag = 0
+    </select>
+    
+    <select id="getDeptUserComboBox" resultType="Map">
+    	select id, case pid when '0' then null else pid end as pid, name as text from system_dept_user
+    </select>    
+
+</mapper>

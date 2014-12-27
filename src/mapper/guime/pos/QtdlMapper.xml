@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guime.pos.dao.QtdlDao">
+
+    <insert id="insert" parameterType="QtdlEntity" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="String" keyProperty="id" order="BEFORE">
+            select to_char(sysdate, 'yymmdd') || java_seq.nextval from dual
+        </selectKey>
+        insert into skyda001
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="skyid != null">
+                skyid,
+            </if>
+            <if test="skyname != null">
+                skyname,
+            </if>
+            <if test="skyposin != null">
+                skyposin,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="postal != null">
+                postal,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="sphone != null">
+                sphone,
+            </if>
+            <if test="skybp != null">
+                skybp,
+            </if>
+            <if test="card_id != null">
+                card_id,
+            </if>
+            <if test="bdate != null">
+                bdate,
+            </if>
+            <if test="sdate != null">
+                sdate,
+            </if>
+            <if test="crate != null">
+                crate,
+            </if>
+            <if test="ctype != null">
+                ctype,
+            </if>
+            <if test="yn_disp != null">
+                yn_disp,
+            </if>
+            <if test="yn_disc != null">
+                yn_disc,
+            </if>
+            <if test="yn_ret != null">
+                yn_ret,
+            </if>
+            <if test="yn_del != null">
+                yn_del,
+            </if>
+            <if test="photo != null">
+                photo,
+            </if>
+            <if test="commnts != null">
+                commnts,
+            </if>
+            <if test="skybm != null">
+                skybm,
+            </if>
+            id,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="skyid != null">
+                #{skyid},
+            </if>
+            <if test="skyname != null">
+                #{skyname},
+            </if>
+            <if test="skyposin != null">
+                #{skyposin},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="postal != null">
+                #{postal},
+            </if>
+            <if test="phone != null">
+                #{phone},
+            </if>
+            <if test="sphone != null">
+                #{sphone},
+            </if>
+            <if test="skybp != null">
+                #{skybp},
+            </if>
+            <if test="card_id != null">
+                #{card_id},
+            </if>
+            <if test="bdate != null">
+                #{bdate},
+            </if>
+            <if test="sdate != null">
+                #{sdate},
+            </if>
+            <if test="crate != null">
+                #{crate},
+            </if>
+            <if test="ctype != null">
+                #{ctype},
+            </if>
+            <if test="yn_disp != null">
+                #{yn_disp},
+            </if>
+            <if test="yn_disc != null">
+                #{yn_disc},
+            </if>
+            <if test="yn_ret != null">
+                #{yn_ret},
+            </if>
+            <if test="yn_del != null">
+                #{yn_del},
+            </if>
+            <if test="photo != null">
+                #{photo},
+            </if>
+            <if test="commnts != null">
+                #{commnts},
+            </if>
+            <if test="skybm != null">
+                #{skybm},
+            </if>
+            #{id},
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="QtdlEntity">
+        update skyda001
+        <set>
+            <if test="skyid != null">
+                skyid = #{skyid},
+            </if>
+            <if test="skyname != null">
+                skyname = #{skyname},
+            </if>
+            <if test="skyposin != null">
+                skyposin = #{skyposin},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="postal != null">
+                postal = #{postal},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="sphone != null">
+                sphone = #{sphone},
+            </if>
+            <if test="skybp != null">
+                skybp = #{skybp},
+            </if>
+            <if test="card_id != null">
+                card_id = #{card_id},
+            </if>
+            <if test="bdate != null">
+                bdate = #{bdate},
+            </if>
+            <if test="sdate != null">
+                sdate = #{sdate},
+            </if>
+            <if test="crate != null">
+                crate = #{crate},
+            </if>
+            <if test="ctype != null">
+                ctype = #{ctype},
+            </if>
+            <if test="yn_disp != null">
+                yn_disp = #{yn_disp},
+            </if>
+            <if test="yn_disc != null">
+                yn_disc = #{yn_disc},
+            </if>
+            <if test="yn_ret != null">
+                yn_ret = #{yn_ret},
+            </if>
+            <if test="yn_del != null">
+                yn_del = #{yn_del},
+            </if>
+            <if test="photo != null">
+                photo = #{photo},
+            </if>
+            <if test="commnts != null">
+                commnts = #{commnts},
+            </if>
+            <if test="skybm != null">
+                skybm = #{skybm},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="validate" resultType="int">
+        select count(*) as count from skyda001
+        <where>
+            <if test="idValue != null and idValue != ''">
+                 and id &lt;&gt; #{idValue}
+            </if>
+            and ${name} = #{value}
+        </where>
+    </select>
+
+    <select id="exists" parameterType="QtdlEntity" resultType="int">
+        select count(*) as count from skyda001
+        <where>
+            <if test="id != null and id != ''">
+                and id &lt;&gt; #{id}
+            </if>
+            and skyid = #{skyid} 
+        </where>
+    </select>
+
+    <delete id="deleteById" parameterType="String">
+        delete from skyda001 where id = #{id}
+    </delete>
+
+    <select id="selectById" parameterType="String" resultType="QtdlEntity">
+        select * from skyda001 where id = #{id}
+    </select>
+
+    <select id="selectAll" parameterType="Map" resultType="QtdlEntity">
+        select * from skyda001
+        <include refid="whereSearch" />
+    </select>
+
+    <select id="count" parameterType="Map" resultType="int">
+        select count(*) from skyda001
+        <include refid="whereSearch" />
+    </select>
+
+    <sql id="whereSearch">
+        <where>
+            <if test="skyid != null and skyid != ''">
+                and skyid like '%${skyid}%'
+            </if>
+            <if test="skyname != null and skyname != ''">
+                and skyname like '%${skyname}%'
+            </if>
+        </where>
+    </sql>
+    
+    <select id="login" parameterType="String" resultType="QtdlEntity">
+		select * from skyda001 where skyid = #{userid} and password = #{password}
+    </select>
+    
+</mapper>

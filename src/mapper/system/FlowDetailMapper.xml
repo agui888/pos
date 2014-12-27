@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.business.system.dao.FlowDetailDao">
+
+    <select id="selectAll" parameterType="String" resultType="FlowDetailEntity">
+        select * from system_flow_detail where pid = #{pid}
+    </select>
+    
+    <insert id="insert" parameterType="FlowDetailEntity" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="String" keyProperty="id" order="BEFORE">
+            select to_char(sysdate, 'yymmdd') || system_flow_detail_seq.nextval from dual
+        </selectKey>
+        insert into system_flow_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="pid != null">
+                pid,
+            </if>
+            <if test="menugroupid != null">
+                menugroupid,
+            </if>
+            <if test="menugroupname != null">
+                menugroupname,
+            </if>
+            <if test="fields != null">
+                fields,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="pid != null">
+                #{pid},
+            </if>
+            <if test="menugroupid != null">
+                #{menugroupid},
+            </if>
+            <if test="menugroupname != null">
+                #{menugroupname},
+            </if>
+            <if test="fields != null">
+                #{fields},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="FlowDetailEntity">
+        update system_flow_detail
+        <set>
+            <if test="pid != null">
+                pid = #{pid},
+            </if>
+            <if test="menugroupid != null">
+                menugroupid = #{menugroupid},
+            </if>
+            <if test="menugroupname != null">
+                menugroupname = #{menugroupname},
+            </if>
+            <if test="fields != null">
+                fields = #{fields},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <select id="selectArrayId" resultType="Map">
+        select * from system_flow_detail where pid = #{pid}
+    </select>
+
+    <delete id="deleteById" parameterType="String">
+        delete from system_flow_detail where id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+	  <tlib-version>1.0</tlib-version>
+	  <jsp-version>1.2</jsp-version>
+	  
+	  <short-name>easyui</short-name>
+	  
+	  <uri>/easyui</uri>
+	  
+	  <display-name>EasyUI 1.0.0 Tags</display-name>
+	  <description>
+		  <![CDATA[Display EasyUI Version 1.0.0 Tags information.]]>
+	  </description>  
+	  
+	  <tag>
+	     <name>gridwidth</name>
+	     <tag-class>com.web.api.core.tag.easy.GridWith</tag-class>
+	     <body-content>empty</body-content>
+		 <description><![CDATA[EasyUI GridWidth Tags]]></description>
+		 <attribute>
+		      <name>list</name>
+	    	  <required>true</required>
+		      <rtexprvalue>true</rtexprvalue>
+		      <description>当前List(Map(String, Object))对象.</description>
+	     </attribute>
+	     <attribute>
+		      <name>gridtag</name>
+	    	  <required>true</required>
+		      <rtexprvalue>true</rtexprvalue>
+		      <description>EasyUI Grid 唯一ID.</description>
+	     </attribute>
+		 <attribute>
+		      <name>key</name>
+	    	  <required>true</required>
+		      <rtexprvalue>true</rtexprvalue>
+		      <description>从当前List中的某行,以"Key 字段名"取值.</description>
+	     </attribute>
+	     <attribute>
+		      <name>initial</name>
+	    	  <required>true</required>
+		      <rtexprvalue>true</rtexprvalue>
+		      <description>初始化宽度</description>
+	     </attribute>	     
+	  </tag>
+	  
+</taglib>

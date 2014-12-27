@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.business.system.dao.OracleDao">
+    
+    <update id="execPurge">
+    	purge recyclebin
+    </update>
+    
+    <select id="getBlock" resultType="String">
+		select to_char(block_size / 1024) as block from user_tablespaces group by block_size
+    </select>
+    
+    <select id="getProcesses" resultType="String">
+		select to_char(value) as value from v$parameter where name = 'processes'
+    </select>
+    
+    <select id="getCount" parameterType="String" resultType="String">
+		select '${tableName},'||to_char(count(*)) as value from ${tableName}
+    </select>
+    
+    <select id="getOracleVersion" resultType="map">
+		select * from v$version
+    </select>
+    
+    <select id="oracleUser" resultType="String">
+		select user from dual
+    </select>
+    
+    <select id="getOracleUserTableSpace" resultType="map">
+		select username, account_status, default_tablespace, temporary_tablespace from user_users
+    </select>
+    
+    <select id="getOracleUserRolePrivs" resultType="map">
+		select granted_role from user_role_privs where upper(username) = (select upper(user) from dual)
+    </select>
+    
+    <select id="getOracleUserSysPrivs" resultType="map">
+		select privilege from user_sys_privs where upper(username) = (select upper(user) from dual)
+    </select>
+    
+    <select id="getOracleTableSpace" resultType="map">
+		select upper(f.tablespace_name) tablespacename,
+		       d.tot_grootte_mb size_mb,
+		       d.tot_grootte_mb - f.total_bytes usesize_mb,
+		       to_char(round((d.tot_grootte_mb - f.total_bytes) / d.tot_grootte_mb * 100, 2), '990.99') use,
+		       f.total_bytes free_mb,
+		       f.max_bytes block
+		  from (select tablespace_name,
+		               round(sum(bytes) / (1024 * 1024), 2) total_bytes,
+		               round(max(bytes) / (1024 * 1024), 2) max_bytes
+		          from sys.dba_free_space
+		         group by tablespace_name) f,
+		       (select dd.tablespace_name,
+		               round(sum(dd.bytes) / (1024 * 1024), 2) tot_grootte_mb
+		          from sys.dba_data_files dd
+		         group by dd.tablespace_name) d
+		 where d.tablespace_name = f.tablespace_name
+		 order by f.tablespace_name
+    </select>
+    
+    <select id="getOracleFileSpace" resultType="map">
+		 select b.file_name filename,
+		        b.tablespace_name tablespace,
+		        b.bytes / 1024 / 1024 size_mb,
+		        (b.bytes - sum(nvl(a.bytes, 0))) / 1024 / 1024 use_mb,
+		        substr((b.bytes - sum(nvl(a.bytes, 0))) / (b.bytes) * 100, 1, 5) use,
+		        round(b.maxbytes / (1024 * 1024), 2) auto_mb
+		 from dba_free_space a, dba_data_files b
+		 where a.file_id = b.file_id
+		 group by b.tablespace_name, b.file_name, b.bytes, b.maxbytes
+		 order by b.tablespace_name
+    </select>
+    
+    <select id="getOracleTableSize" resultType="map">
+		 select q.*
+		  from (select a.*,
+		               case
+		                 when a.segment_type = 'TABLE' then
+		                  a.segment_name
+		                 when a.segment_type = 'INDEX' then
+		                  d.table_name
+		               end as tab_name,
+		               b.table_name,
+		               b.tablespace_name as tab_space,
+		               b.partitioned,
+		               c.comments,
+		               d.index_name,
+		               d.index_type,
+		               d.tablespace_name as index_space,
+		               e.constraint_name,
+		               e.constraint_type
+		          from (select aa.segment_name,
+		                       aa.segment_type,
+		                       round(sum(aa.bytes) / (1024 * 1024), 2) use_mb
+		                  from dba_segments aa
+		                 where aa.owner = USER
+		                 group by aa.segment_name, aa.segment_type) a
+		          left join user_tables b
+		            on a.segment_name = b.table_name
+		          left join user_tab_comments c
+		            on a.segment_name = c.table_name
+		          left join user_indexes d
+		            on a.segment_name = d.index_name
+		          left join user_constraints e
+		            on a.segment_name = e.constraint_name) q
+		 order by q.use_mb desc, q.tab_name, q.segment_name
+    </select>
+    
+    <select id="getOracleSession" resultType="map">
+		select sid,serial# serial,username,program,machine,status from v$session
+    </select>
+    
+    <select id="getOracleParameter" resultType="map">
+		select name,value,isdefault, description, update_comment from v$parameter order by name
+    </select>
+    
+    <select id="getOraclePGA" resultType="map">
+		select name,value,unit,round(value / (1024 * 1024),2) mb from v$pgastat
+    </select>
+    
+    <select id="getOracleSGA" resultType="map">
+		select pool,name,bytes,round(bytes / (1024 * 1024),2) mb from v$sgastat
+    </select>
+    
+</mapper>

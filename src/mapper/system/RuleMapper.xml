@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.business.system.dao.RuleDao">
+
+	<!-- CUDR 模板配置 Begin -->
+    <insert id="insert" parameterType="RuleEntity" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="String" keyProperty="id" order="BEFORE">
+            select to_char(sysdate, 'yymmdd') || system_rule_seq.nextval from dual
+        </selectKey>
+        insert into system_rule
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="menuid != null">
+                menuid,
+            </if>
+            <if test="rulename != null">
+                rulename,
+            </if>
+            <if test="rulesql != null">
+                rulesql,
+            </if>
+            <if test="num != null">
+                num,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="menuid != null">
+                #{menuid},
+            </if>
+            <if test="rulename != null">
+                #{rulename},
+            </if>
+            <if test="rulesql != null">
+                #{rulesql},
+            </if>
+            <if test="num != null">
+                #{num},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="RuleEntity">
+        update system_rule
+        <set>
+            <if test="menuid != null">
+                menuid = #{menuid},
+            </if>
+            <if test="rulename != null">
+                rulename = #{rulename},
+            </if>
+            <if test="rulesql != null">
+                rulesql = #{rulesql},
+            </if>
+            <if test="num != null">
+                num = #{num},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="validate" resultType="int">
+        select 0 as count from dual
+    </select>
+
+    <select id="exists" parameterType="RuleEntity" resultType="int">
+        select 0 as count from dual
+    </select>
+
+    <delete id="deleteById" parameterType="String">
+        delete from system_rule where id = #{id}
+    </delete>
+
+    <select id="selectById" parameterType="String" resultType="RuleEntity">
+        select * from system_rule where id = #{id}
+    </select>
+
+    <select id="selectAll" parameterType="Map" resultType="RuleEntity">
+        select * from system_rule
+        <include refid="whereSearch" />
+    </select>
+    
+    <sql id="whereSearch">
+	    <where>
+	        <if test="menuid != null and menuid != ''">
+	            and menuid like '%${menuid}%'
+	        </if>
+	        <if test="rulename != null and rulename != ''">
+	            and rulename like '%${rulename}%'
+	        </if>
+	    </where>
+    </sql>
+	<!-- CUDR 模板配置 End -->
+	
+    <select id="getRuleList" parameterType="String" resultType="RuleEntity">
+        select * from system_rule where menuid = #{menuid} order by id
+    </select>
+    
+    <!-- Ajax -->
+    <update id="setRulePower" parameterType="String">
+        update system_menu set power = #{value} where id = #{id}
+    </update>
+    
+    <delete id="delManageRulePower" parameterType="String">
+    	delete from system_manage_power where menuid = #{id}
+    </delete>
+    
+    <delete id="delUserRulePower" parameterType="String">
+    	delete from system_user_power where menuid2 = #{id}
+    </delete>
+    
+    
+    <!-- Ajax -->
+    <update id="setRuleWrite" parameterType="String">
+    	update system_menu set write = #{value} where id = #{id}
+    </update>
+    
+    <update id="setManageRuleWrite" parameterType="String">
+    	update system_manage_power set menuwrite = 0, iswrite = 0 where  menuid = #{id}
+    </update>
+    
+    <update id="setUserRuleWrite" parameterType="String">
+    	update system_user_power set managepowerwrite2 = 0, iswrite2 = 0 where  menuid2 = #{id}
+    </update>
+
+</mapper>

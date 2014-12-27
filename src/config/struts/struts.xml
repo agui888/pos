@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<constant name="struts.multipart.saveDir" value="C:/Temp"/>
+	<constant name="struts.multipart.maxSize" value="325058560"/>
+	
+	<constant name="struts.objectFactory" value="spring"/> 
+	<constant name="struts.objectFactory.spring.useClassCache" value="true"/> 
+	<constant name="struts.objectFactory.spring.autoWire" value="name"/>
+	
+	<package name="common" extends="struts-default,json-default">
+		<global-results>
+	        <result name="exportexcel" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">outputStream</param>
+				<param name="contentDisposition">attachment;filename="${filename}"</param>
+				<param name="bufferSize">102400</param> 
+	        </result>
+	        <result name="importexcel">/web/importexcel/file.jsp</result>
+	
+	        <result name="actionException">/web/error/action.jsp</result>
+	        <result name="serviceException">/web/error/service.jsp</result>
+	        <result name="existsException">/web/error/exists.jsp</result>
+	          
+	        <result name="overtime">/web/error/overtime.jsp</result>
+	        <result name="nopower">/web/error/nopower.jsp</result>
+	        
+	        <!-- 公共返回 Begin -->
+	        <result name="list" type="json">
+	            <param name="root">listJson</param>
+	            <param name="contentType">text/html</param>
+	        </result>
+	
+	        <result name="saveajax" type="json">
+	            <param name="root">resultJson</param>
+	            <param name="contentType">text/html</param>
+	        </result>
+	
+	        <result name="validated" type="json">
+	            <param name="root">resultJson</param>
+	            <param name="contentType">text/html</param>
+	        </result>	
+	        <!-- 公共返回 End -->        
+	    </global-results>
+	    
+	    <global-exception-mappings>
+	       <exception-mapping result="actionException" exception="com.web.api.core.exception.ActionException"></exception-mapping>
+	       <exception-mapping result="serviceException" exception="com.web.api.core.exception.ServiceException"></exception-mapping>
+	       <exception-mapping result="existsException" exception="com.web.api.core.exception.ExistsException"></exception-mapping>
+	    </global-exception-mappings>
+	</package> 
+	
+	<package name="core" namespace="/" extends="common">
+		<interceptors>
+			<interceptor name="baseStack" class="com.web.api.core.action.interceptor.BaseInterceptor"></interceptor>
+			<interceptor name="dynamicStack" class="com.web.api.core.action.interceptor.DynamicInterceptor">
+	        	<param name="defaultDataSource">coreDataSource</param>
+	        </interceptor>
+	        <interceptor name="menuStack" class="com.web.api.core.action.interceptor.MenuInterceptor"></interceptor>
+	        <interceptor name="gridStack" class="com.web.api.core.action.interceptor.GridInterceptor"></interceptor>
+	        <interceptor name="powerStack" class="com.web.api.core.action.interceptor.PowerInterceptor"></interceptor>
+	        
+	        <interceptor-stack name="defaultStackAction">
+	           <interceptor-ref name="defaultStack"></interceptor-ref>
+	           <interceptor-ref name="baseStack"></interceptor-ref>
+	           <interceptor-ref name="dynamicStack"></interceptor-ref>
+	           <interceptor-ref name="menuStack"></interceptor-ref>
+	           <interceptor-ref name="gridStack"></interceptor-ref>
+	           <interceptor-ref name="powerStack"></interceptor-ref>
+	        </interceptor-stack>   
+		</interceptors>
+	   
+		<default-interceptor-ref name="defaultStackAction"></default-interceptor-ref>
+    </package>
+    
+    <package name="guime" namespace="/" extends="common">
+		<interceptors>
+			<interceptor name="baseStack" class="com.web.api.core.action.interceptor.BaseInterceptor"></interceptor>
+	        <interceptor name="dynamicStack" class="com.web.api.core.action.interceptor.DynamicInterceptor"></interceptor>
+	        
+	        <interceptor-stack name="defaultStackAction">
+	           <interceptor-ref name="defaultStack"></interceptor-ref>
+	           <interceptor-ref name="baseStack"></interceptor-ref>
+			   <interceptor-ref name="dynamicStack"></interceptor-ref>
+	        </interceptor-stack>   
+		</interceptors>
+	   
+		<default-interceptor-ref name="defaultStackAction"></default-interceptor-ref>
+    </package>
+    
+	<include file="config/struts/struts-system.xml" />
+	<include file="config/struts/struts-report.xml" />
+    <include file="config/struts/struts-guime-base.xml" />
+    <include file="config/struts/struts-guime-pos.xml" />
+    
+</struts>

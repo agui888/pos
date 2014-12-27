@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.business.system.dao.ManagePowerDao">
+
+    <insert id="insert" parameterType="ManagePowerEntity" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="String" keyProperty="id" order="BEFORE">
+            select to_char(sysdate, 'yymmdd') || system_manage_power_seq.nextval from dual
+        </selectKey>
+        insert into system_manage_power
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="roleid != null">
+                roleid,
+            </if>
+            <if test="menuid != null">
+                menuid,
+            </if>
+            <if test="ispower != null">
+                ispower,
+            </if>
+            <if test="menuwrite != null">
+                menuwrite,
+            </if>
+            <if test="iswrite != null">
+                iswrite,
+            </if>
+            <if test="flag != null">
+                flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="roleid != null">
+                #{roleid},
+            </if>
+            <if test="menuid != null">
+                #{menuid},
+            </if>
+            <if test="ispower != null">
+                #{ispower},
+            </if>
+            <if test="menuwrite != null">
+                #{menuwrite},
+            </if>
+            <if test="iswrite != null">
+                #{iswrite},
+            </if>
+            <if test="flag != null">
+                #{flag},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="ManagePowerEntity">
+        update system_manage_power
+        <set>
+            <if test="roleid != null">
+                roleid = #{roleid},
+            </if>
+            <if test="menuid != null">
+                menuid = #{menuid},
+            </if>
+            <if test="ispower != null">
+                ispower = #{ispower},
+            </if>
+            <if test="menuwrite != null">
+                menuwrite = #{menuwrite},
+            </if>
+            <if test="iswrite != null">
+                iswrite = #{iswrite},
+            </if>
+            <if test="flag != null">
+                flag = #{flag},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    
+    <!-- ManagePowerAction 权限菜单引用方法  (zTree.js 引用的 JSON) -->
+    <select id="getManagePowerMenuList" parameterType="String" resultType="java.util.HashMap">
+		select 
+			a.id as "managepowerid", 
+			a.menuid as "menuid", 
+			b.sid as "sid", 
+			b.menu as "name", 
+			#{path} || b.ico as "icon", 
+			case when ispower = 1 then 
+				'true' 
+			else 
+				'false' 
+			end "checked", 
+			case when b.url is null then 
+				'true' 
+			else 
+				'false' 
+			end "iframesrc", 
+			'true' as "open" 
+		from system_manage_power a left join system_menu b on a.menuid = b.id 
+		where a.roleid = #{roleid} order by b.colid, b.id
+    </select>
+
+	<!-- 初始化菜单 Begin -->
+	<update id="updatePowerEntityFlag" parameterType="String">
+        update system_manage_power set flag = 1 where roleid = #{roleid}
+    </update>
+    
+    <select id="getPowerEntity" parameterType="String" resultType="ManagePowerEntity">
+        select * from system_manage_power where roleid = #{roleid} and menuid = #{menuid}
+    </select>
+    
+    <delete id="deletePowerEntityFlag" parameterType="String">
+        delete from system_manage_power where flag = 1 and roleid = #{roleid}
+    </delete>
+	<!-- 初始化菜单 End -->    
+    
+    <!-- 初始化规则 Begin -->
+	<update id="updatePowerRuleEntityFlag" parameterType="String">
+        update system_manage_power_rule set flag = 1 where managepowerid = #{managepowerid}
+    </update>  
+    
+    <select id="getPowerEntityExists" parameterType="String" resultType="String">
+        select id from system_manage_power where id = #{managepowerid}
+    </select>
+    
+    <select id="getPowerRuleEntity" parameterType="String" resultType="ManagePowerRuleEntity">
+        select * from system_manage_power_rule where managepowerid = #{managepowerid} and ruleid = #{ruleid}
+    </select>
+    
+    <delete id="deletePowerRuleEntityFlag" parameterType="String">
+        delete from system_manage_power_rule where flag = 1 and managepowerid = #{managepowerid}
+    </delete>  
+    <!-- 初始化规则 End -->
+    
+    <select id="getPowerRuleList" parameterType="String" resultType="Map">
+        select a.id as "id", 
+        	   a.id as "ruleid", 
+        	   a.managepowerid as "managepowerid", 
+        	   a.checked as "checked", 
+        	   b.rulename as "rulename", 
+        	   b.num as "num", 
+        	   b.remark as "remark" 
+        from system_manage_power_rule a 
+             left join system_rule b 
+             on a.ruleid = b.id 
+		where a.managepowerid = #{managepowerid}
+		order by a.id
+    </select>
+    
+    <select id="getManagePowerEntity" parameterType="String" resultType="ManagePowerEntity">
+        select * from system_manage_power where id = #{managepowerid}
+    </select>    
+    
+	<update id="setIspower" parameterType="String">
+        update system_manage_power set ispower = #{value} where id = #{id}
+    </update>
+    
+    <update id="setIswrite" parameterType="String">
+        update system_manage_power set iswrite = #{value} where id = #{id}
+    </update>
+    
+    <update id="setRuleChecked" parameterType="String">
+        update system_manage_power_rule set checked = #{value} where managepowerid = #{managepowerid} and id = #{ruleid}
+    </update>
+    
+	<select id="getManagePowerList" parameterType="String" resultType="ManagePowerEntity">
+        select * from system_manage_power where ispower = 1 and roleid = #{roleid}
+    </select>
+    
+    <select id="getManagePowerRuleList" parameterType="String" resultType="ManagePowerRuleEntity">
+        select * from system_manage_power_rule where checked = 1 and managepowerid = #{managepowerid}
+    </select>
+    
+</mapper>

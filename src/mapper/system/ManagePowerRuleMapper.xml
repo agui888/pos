@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.business.system.dao.ManagePowerRuleDao">
+
+    <insert id="insert" parameterType="ManagePowerRuleEntity" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="String" keyProperty="id" order="BEFORE">
+            select to_char(sysdate, 'yymmdd') || system_manage_power_rule_seq.nextval from dual
+        </selectKey>
+        insert into system_manage_power_rule
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="managepowerid != null">
+                managepowerid,
+            </if>
+            <if test="ruleid != null">
+                ruleid,
+            </if>
+            <if test="checked != null">
+                checked,
+            </if>
+            <if test="flag != null">
+                flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="managepowerid != null">
+                #{managepowerid},
+            </if>
+            <if test="ruleid != null">
+                #{ruleid},
+            </if>
+            <if test="checked != null">
+                #{checked},
+            </if>
+            <if test="flag != null">
+                #{flag},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="ManagePowerRuleEntity">
+        update system_manage_power_rule
+        <set>
+            <if test="managepowerid != null">
+                managepowerid = #{managepowerid},
+            </if>
+            <if test="ruleid != null">
+                ruleid = #{ruleid},
+            </if>
+            <if test="checked != null">
+                checked = #{checked},
+            </if>
+            <if test="flag != null">
+                flag = #{flag},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

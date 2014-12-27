@@ -1,0 +1,23 @@
+0) Ace,所有页面在
+    0.1) 在  aceadmin 目录 include 目录中
+    
+1) 修改EasyUI CSS代码:
+	1.1) 修改\WebRoot\resources\ui\jquery-easyui-1.3.6\themes\default\datagrid.css   第79行:   将原来的 height: 25px; 改为height: 28px;
+	1.2) 修改\WebRoot\resources\ui\jquery-easyui-1.3.6\themes\default\easyui.css     第1098行: 将原来的 height: 25px; 改为height: 28px;
+	1.3) 修改\WebRoot\resources\ui\jquery-easyui-1.3.6\themes\default\easyui.css     第1104行: 将原来的 border-style: dotted; 改为border-style: solid;
+	1.4) 修改\WebRoot\resources\ui\jquery-easyui-1.3.6\themes\default\easyui.css     第1238、1256行, 将原来的 ccc 改为 e1e1e1
+	1.5) 修改\WebRoot\resources\ui\jquery-easyui-1.3.6\themes\default\easyui.css     第1274行, 将原来的 ffe48d 改为 e4efc9
+	1.6) 修改\WebRoot\resources\ui\jquery-easyui-1.3.6\themes\default\panel.css      第109行, 改为 #cccccc
+	  
+
+	
+2) 扩展了一个Bootstrap的样式文件:
+    2.1) 文件名为\WebRoot\resources\ui\bootstrap-3.2.0-dist\css\bootstrap-extend.css 文件
+    
+    
+3) 对Validform修改地方以*Tobin*做为标记记录.
+          以下4行是屏蔽保存时，所弹出的很丑对话框
+    982行      // *Tobin* Validform.util.showmsg.call(curform,curform.data("tipmsg").p||tipmsg.p,settings.tiptype,{obj:curform,type:1,sweep:settings.tipSweep},"byajax");
+    1026行    // *Tobin* Validform.util.showmsg.call(curform,data.info,settings.tiptype,{obj:curform,type:2,sweep:settings.tipSweep},"byajax");
+    1030行    // *Tobin* Validform.util.showmsg.call(curform,data.info,settings.tiptype,{obj:curform,type:3,sweep:settings.tipSweep},"byajax");
+    1039行   // *Tobin* Validform.util.showmsg.call(curform,msg,settings.tiptype,{obj:curform,type:3,sweep:settings.tipSweep},"byajax");    

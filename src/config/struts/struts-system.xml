@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+    
+<struts>
+	<package name="system" extends="core" namespace="/system">
+	   
+	    <result-types>
+			<result-type name="verificationCodeResult" class="com.web.business.system.action.VerificationCodeResult"/>
+	    </result-types>
+	   
+	    <!-- 验证码 -->
+	    <action name="verification_*" class="com.web.business.system.action.VerificationCodeAction" method="{1}">
+			<result name="success" type="verificationCodeResult"/>
+	    </action>
+	    
+	    <!-- 登录 -->
+	    <action name="login_*" class="com.web.business.system.action.LoginAction" method="{1}">
+			<result name="input">/web/business/system/login/login.jsp</result>
+			<result name="success" type="redirect">/system/home_enter.action</result>
+	    </action>	
+	    
+	    <!-- 主页 -->
+	    <action name="home_*" class="com.web.business.system.action.HomeAction" method="{1}">
+			<result name="enter">/web/business/system/home/index.jsp</result>
+	    </action>	        
+	    
+	    <!-- 菜单配置 -->
+        <action name="menu_*" class="com.web.business.system.action.MenuAction" method="{1}">
+            <result name="enter">/web/ace/index.jsp</result>
+	        <result name="append">/web/ace/index.jsp</result>
+	        <result name="modify">/web/ace/index.jsp</result>
+	        <result name="view">/web/ace/index.jsp</result>
+	
+	        <result name="savelist" type="redirect">/system/menu_enter.action?menuid=${menuid}</result>
+	        <result name="saveappend" type="redirect">/system/menu_append.action?menuid=${menuid}</result>
+	        <result name="checkform">/web/ace/index.jsp</result>
+	    </action>
+	   
+	    <!-- 角色管理 Manage -->
+	    <action name="managerole_*" class="com.web.business.system.action.ManageRoleAction" method="{1}">
+			<result name="enter">/web/ace/index.jsp</result>
+		</action>
+	    
+		<!-- 角色管理  Base -->
+		<action name="baserole_*" class="com.web.business.system.action.BaseRoleAction" method="{1}">
+			<result name="enter">/web/ace/index.jsp</result>
+		</action>
+	    
+		<!-- 用户管理 Manage -->
+	    <action name="manageuser_*" class="com.web.business.system.action.ManageUserAction" method="{1}">
+	        <result name="enter">/web/ace/index.jsp</result>
+	        <result name="append">/web/ace/index.jsp</result>
+	        <result name="modify">/web/ace/index.jsp</result>
+	        <result name="view">/web/ace/index.jsp</result>
+	
+	        <result name="savelist" type="redirect">/system/manageuser_enter.action?menuid=${menuid}</result>
+	        <result name="saveappend" type="redirect">/system/manageuser_append.action?menuid=${menuid}</result>
+	        <result name="checkform">/web/ace/index.jsp</result>
+	
+		  	<result name="openpassword">/web/business/system/user/manage/password.jsp</result>
+		  	<result name="savepassword" type="json">
+		        <param name="root">resultJson</param>
+		        <param name="contentType">text/html</param>
+		  	</result>
+	    </action>
+	    
+	    <!-- 用户管理 Base -->
+	    <action name="baseuser_*" class="com.web.business.system.action.BaseUserAction" method="{1}">
+	   		<result name="enter">/web/ace/index.jsp</result>
+	        <result name="append">/web/ace/index.jsp</result>
+	        <result name="modify">/web/ace/index.jsp</result>
+	        <result name="view">/web/ace/index.jsp</result>
+	
+	        <result name="savelist" type="redirect">/system/baseuser_enter.action?menuid=${menuid}</result>
+	        <result name="saveappend" type="redirect">/system/baseuser_append.action?menuid=${menuid}</result>
+	        <result name="checkform">/web/ace/index.jsp</result>
+	
+		  	<result name="openpassword">/web/business/system/user/base/password.jsp</result>
+		  	<result name="savepassword" type="json">
+		        <param name="root">resultJson</param>
+		        <param name="contentType">text/html</param>
+		  	</result>
+		  	
+			<result name="myopenpassword">/web/business/system/user/base/mypassword.jsp</result>
+			<result name="mysavepassword" type="json">
+				<param name="root">resultJson</param>
+				<param name="contentType">text/html</param>   
+			</result>
+		  
+			<result name="myopeninformation">/web/business/system/user/base/myinformation.jsp</result>
+			<result name="mysaveinformation" type="json">
+				<param name="root">resultJson</param>
+				<param name="contentType">text/html</param>   
+			</result>
+	    </action>
+	    
+	    <!-- 权限参数 -->
+	    <action name="rule_*" class="com.web.business.system.action.RuleAction" method="{1}">
+			<result name="enter">/web/ace/index.jsp</result>
+			<result name="append">/web/business/system/rule/edit.jsp</result>
+			<result name="modify">/web/business/system/rule/edit.jsp</result>
+			<result name="view">/web/business/system/rule/edit.jsp</result>
+
+			<result name="savelist" type="redirect">/system/rule_operate.action?menuid=${menuid}&amp;powermenu=${powermenu}</result>
+			<result name="saveappend" type="redirect">/system/rule_append.action?menuid=${menuid}&amp;powermenu=${powermenu}</result>
+
+			<result name="checkform">/web/business/system/rule/edit.jsp</result>
+		  
+			<result name="welcome">/web/business/system/rule/welcome.jsp</result>
+			<result name="operate">/web/business/system/rule/list.jsp</result>
+		</action>
+	   
+	   <!-- 字典管理 -->
+	   <action name="dict_*" class="com.web.business.system.action.DictAction" method="{1}">
+			<result name="enter">/web/ace/index.jsp</result>
+	   </action>
+	   
+	   <!-- 系统参数 -->
+	   <action name="param_*" class="com.web.business.system.action.ParamAction" method="{1}">
+		  <result name="success">/web/ace/index.jsp</result>
+	   </action>
+	   
+	   <!-- 表格管理 -->
+	   <action name="grid_*" class="com.web.business.system.action.GridAction" method="{1}">
+		  <result name="enter">/web/ace/index.jsp</result>
+	   </action>
+	   
+	   <!-- 部门管理 -->
+	   <action name="dept_*" class="com.web.business.system.action.DeptAction" method="{1}">
+			<result name="enter">/web/ace/index.jsp</result>
+	   </action>
+	   
+	   <!-- 职称管理 -->
+	   <action name="position_*" class="com.web.business.system.action.PositionAction" method="{1}">
+			<result name="enter">/web/ace/index.jsp</result>
+	        <result name="append">/web/ace/index.jsp</result>
+	        <result name="modify">/web/ace/index.jsp</result>
+	        <result name="view">/web/ace/index.jsp</result>
+	        
+	        <result name="savelist" type="redirect">/system/position_enter.action?menuid=${menuid}</result>
+            <result name="saveappend" type="redirect">/system/position_append.action?menuid=${menuid}</result>
+            <result name="checkform">/web/ace/index.jsp</result>
+		</action>
+		
+		<!-- 工作流管理 -->
+		<action name="flow_*" class="com.web.business.system.action.FlowAction" method="{1}">
+	        <result name="enter">/web/ace/index.jsp</result>
+	        <result name="append">/web/ace/index.jsp</result>
+	        <result name="modify">/web/ace/index.jsp</result>
+	        <result name="view">/web/ace/index.jsp</result>
+	
+	        <result name="savelist" type="redirect">/system/flow_enter.action?menuid=${menuid}</result>
+	        <result name="saveappend" type="redirect">/system/flow_append.action?menuid=${menuid}</result>
+	        <result name="checkform">/web/ace/index.jsp</result>
+	    </action>
+	    
+	    <!-- 系统日志 -->
+        <action name="logs_*" class="com.web.business.system.action.LogsAction" method="{1}">
+	        <result name="enter">/web/ace/index.jsp</result>
+	        <result name="view">/web/ace/index.jsp</result>
+	    </action>
+	    
+	    <!-- 权限管理 Manage -->
+		<action name="managepower_*" class="com.web.business.system.action.ManagePowerAction" method="{1}">
+			<result name="enter">/web/business/system/power/manage/index.jsp</result>
+			<result name="list">/web/business/system/power/manage/list.jsp</result>
+	    </action>
+	    
+	    <!-- 权限管理 User -->
+	    <action name="userpower_*" class="com.web.business.system.action.UserPowerAction" method="{1}">
+			<result name="enter">/web/business/system/power/user/index.jsp</result>
+			<result name="list">/web/business/system/power/user/list.jsp</result>
+	    </action>
+	    
+	    <!-- Oracle 数据库 -->
+	    <action name="oracle_*" class="com.web.business.system.action.OracleAction" method="{1}">
+	       <result name="enter">/web/ace/index.jsp</result>
+		   <result name="rolepower">/web/business/system/oracle/rolepower.jsp</result>
+		   <result name="tablespace">/web/business/system/oracle/tablespace.jsp</result>
+		   <result name="filespace">/web/business/system/oracle/filespace.jsp</result>
+		   <result name="tablesize">/web/business/system/oracle/tablesize.jsp</result>
+		   <result name="session">/web/business/system/oracle/session.jsp</result>
+		   <result name="parameter">/web/business/system/oracle/parameter.jsp</result>
+		   <result name="pga">/web/business/system/oracle/pga.jsp</result>
+		   <result name="sga">/web/business/system/oracle/sga.jsp</result>
+		   <result name="index">/web/business/system/oracle/index.jsp</result>
+	    </action>
+	   
+	</package>
+</struts>

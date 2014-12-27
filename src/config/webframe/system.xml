@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+
+	<!-- 释放的ActionClass, 如LogicAction的类释放 -->
+	<strutsClassInterceptor>	
+		<actionMethod>LoginAction</actionMethod>
+		<actionMethod>VerificationCodeAction</actionMethod>
+	</strutsClassInterceptor>
+	
+	<!-- 释放的ActionClass Method, 如dept_jsontree.action的方法释放 -->
+	<strutsMethodInterceptor>	
+		<actionMethod>grid_width.action</actionMethod>
+		<actionMethod>flow_nodeuserlist.action</actionMethod>
+		<actionMethod>flow_instance.action</actionMethod>
+	</strutsMethodInterceptor>	
+	
+	<!-- Spring 多数据源 -->
+	<spring>
+		<dataSource name="coreDataSource" default="true" />
+		<dataSource name="dataSource1" default="false" />
+	</spring>	
+
+</properties>

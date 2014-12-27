@@ -1,0 +1,21 @@
+/*!
+ * Bootstrap v3.2.0
+ * 基于当前版本,谢少华扩展的CSS  
+ * 2014-7-5 
+ */
+
+.input-group-xs > .form-control,
+.input-group-xs > .input-group-addon,
+.input-group-xs > .input-group-btn > .btn {
+  height: 27px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+
+.table-xs td {
+  padding: 3px;
+}
+
+.table-bo td {border:#99ccff 1px solid;}

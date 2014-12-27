@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.business.system.dao.PositionDao">
+
+    <insert id="insert" parameterType="PositionEntity" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="String" keyProperty="id" order="BEFORE">
+            select to_char(sysdate, 'yymmdd') || system_position_seq.nextval from dual
+        </selectKey>
+        insert into system_position
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="positionname != null">
+                positionname,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            delflag,
+            rowtime,
+            rowver,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="positionname != null">
+                #{positionname},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+            0,
+            sysdate,
+            0,
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="PositionEntity">
+        update system_position
+        <set>
+            <if test="positionname != null">
+                positionname = #{positionname},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            rowtime = sysdate,
+            rowver = rowver + 1,
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="validate" resultType="int">
+        select count(*) as count from system_position
+        <where>
+            <if test="idValue != null and idValue != ''">
+                 and id &lt;&gt; #{idValue}
+            </if>
+            and ${name} = #{value}
+            and delflag = 0
+        </where>
+    </select>
+
+    <select id="exists" parameterType="PositionEntity" resultType="int">
+        select count(*) as count from system_position
+        <where>
+            <if test="id != null and id != ''">
+                and id &lt;&gt; #{id}
+            </if>
+            and positionname = #{positionname} 
+            and delflag = 0
+        </where>
+    </select>
+
+    <delete id="deleteById" parameterType="String">
+        update system_position set delflag = 1 where id = #{id}
+    </delete>
+
+    <select id="selectById" parameterType="String" resultType="PositionEntity">
+        select * from system_position where id = #{id}
+    </select>
+
+    <select id="selectAll" parameterType="Map" resultType="PositionEntity">
+        select * from system_position
+        <include refid="whereSearch" />
+    </select>
+
+    <select id="count" parameterType="Map" resultType="int">
+        select count(*) from system_position
+        <include refid="whereSearch" />
+    </select>
+
+    <sql id="whereSearch">
+        <where>
+            delflag = 0
+            <if test="positionname != null and positionname != ''">
+                and positionname like '%${positionname}%'
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark like '%${remark}%'
+            </if>
+        </where>
+    </sql>
+	
+	
+	
+	<select id="getEntityList" resultType="PositionEntity">
+		select *
+		from system_position where delflag = 0 
+		order by id asc
+	</select>
+	
+	<delete id="synchronizationMenu">
+		delete 
+		from system_position_detail 
+		where menugroupid not in (
+			select menugroupid from system_menu where menugroupid is not null
+		)
+	</delete> 
+	
+	<select id="existsDetail" parameterType="String" resultType="int">
+		select count(id) 
+		from system_position_detail 
+		where pid = #{id} and menugroupid = #{menugroupid}
+	</select> 	
+	
+</mapper>

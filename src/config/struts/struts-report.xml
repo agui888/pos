@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+    
+<struts>
+	<package name="report" extends="core" namespace="/report">
+	
+		<action name="menurule_*" class="com.web.business.report.action.MenuruleAction" method="{1}">
+			<result name="enter">/web/ace/index.jsp</result>
+		</action>
+		
+		<action name="userrole_*" class="com.web.business.report.action.UserroleAction" method="{1}">
+			<result name="enter">/web/ace/index.jsp</result>
+		</action>
+		
+		<action name="rolemanagepower_*" class="com.web.business.report.action.RolemanagepowerAction" method="{1}">
+			<result name="enter">/web/ace/index.jsp</result>
+		</action>		
+		
+		<action name="roleuserpower_*" class="com.web.business.report.action.RoleuserpowerAction" method="{1}">
+			<result name="enter">/web/ace/index.jsp</result>
+		</action>		
+		
+		<action name="access_*" class="com.web.business.report.action.AccessAction" method="{1}">
+			<result name="enter">/web/ace/index.jsp</result>
+		</action>
+		
+		<action name="module_*" class="com.web.business.report.action.ModuleAction" method="{1}">
+			<result name="enter">/web/ace/index.jsp</result>
+		</action>		
+		
+	</package>
+</struts>
