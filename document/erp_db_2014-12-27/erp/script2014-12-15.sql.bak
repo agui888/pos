@@ -9,7 +9,7 @@ prompt
 prompt Creating table BASE_CITY
 prompt ========================
 prompt
-create table BASE_CITY
+create table erp.BASE_CITY
 (
   id       NUMBER not null,
   pid      NUMBER default 0,
@@ -19,7 +19,7 @@ create table BASE_CITY
   rowtime  DATE,
   rowver   NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -30,26 +30,26 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table BASE_CITY
+comment on table erp.BASE_CITY
   is '地区';
-comment on column BASE_CITY.id
+comment on column erp.BASE_CITY.id
   is 'ID';
-comment on column BASE_CITY.pid
+comment on column erp.BASE_CITY.pid
   is '父ID';
-comment on column BASE_CITY.cityname
+comment on column erp.BASE_CITY.cityname
   is '地区';
-comment on column BASE_CITY.colid
+comment on column erp.BASE_CITY.colid
   is '序列';
-comment on column BASE_CITY.delflag
+comment on column erp.BASE_CITY.delflag
   is '删除标记';
-comment on column BASE_CITY.rowtime
+comment on column erp.BASE_CITY.rowtime
   is '更新时间';
-comment on column BASE_CITY.rowver
+comment on column erp.BASE_CITY.rowver
   is '版本号';
-alter table BASE_CITY
+alter table erp.BASE_CITY
   add constraint BASE_CITY_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -65,7 +65,7 @@ prompt
 prompt Creating table BASE_SERVER
 prompt ==========================
 prompt
-create table BASE_SERVER
+create table erp.BASE_SERVER
 (
   id             VARCHAR2(15) not null,
   servername     VARCHAR2(255),
@@ -80,7 +80,7 @@ create table BASE_SERVER
   rowtime        DATE,
   rowver         NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -91,36 +91,36 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table BASE_SERVER
+comment on table erp.BASE_SERVER
   is '服务器信息';
-comment on column BASE_SERVER.id
+comment on column erp.BASE_SERVER.id
   is 'ID';
-comment on column BASE_SERVER.servername
+comment on column erp.BASE_SERVER.servername
   is '服务器名称';
-comment on column BASE_SERVER.datasource
+comment on column erp.BASE_SERVER.datasource
   is 'DataSource';
-comment on column BASE_SERVER.ip
+comment on column erp.BASE_SERVER.ip
   is 'IP地址';
-comment on column BASE_SERVER.port
+comment on column erp.BASE_SERVER.port
   is '端口';
-comment on column BASE_SERVER.sid
+comment on column erp.BASE_SERVER.sid
   is '实例';
-comment on column BASE_SERVER.oracleuser
+comment on column erp.BASE_SERVER.oracleuser
   is '用户';
-comment on column BASE_SERVER.oraclepassword
+comment on column erp.BASE_SERVER.oraclepassword
   is '密码';
-comment on column BASE_SERVER.use
+comment on column erp.BASE_SERVER.use
   is '0表示未占用/1表示占用';
-comment on column BASE_SERVER.delflag
+comment on column erp.BASE_SERVER.delflag
   is '删除标记';
-comment on column BASE_SERVER.rowtime
+comment on column erp.BASE_SERVER.rowtime
   is '更新时间';
-comment on column BASE_SERVER.rowver
+comment on column erp.BASE_SERVER.rowver
   is '版本号';
-alter table BASE_SERVER
+alter table erp.BASE_SERVER
   add constraint BASE_SERVER_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -136,7 +136,7 @@ prompt
 prompt Creating table BASE_STORE
 prompt =========================
 prompt
-create table BASE_STORE
+create table erp.BASE_STORE
 (
   id            VARCHAR2(15) not null,
   cityid        NUMBER,
@@ -154,7 +154,7 @@ create table BASE_STORE
   rowtime       DATE,
   rowver        NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -165,42 +165,42 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table BASE_STORE
+comment on table erp.BASE_STORE
   is '商家管理';
-comment on column BASE_STORE.id
+comment on column erp.BASE_STORE.id
   is 'ID';
-comment on column BASE_STORE.cityid
+comment on column erp.BASE_STORE.cityid
   is '所属地区ID';
-comment on column BASE_STORE.storename
+comment on column erp.BASE_STORE.storename
   is '商家名称';
-comment on column BASE_STORE.code
+comment on column erp.BASE_STORE.code
   is '营业执照编号';
-comment on column BASE_STORE."linkman"
+comment on column erp.BASE_STORE."linkman"
   is '负责人';
-comment on column BASE_STORE."tel"
+comment on column erp.BASE_STORE."tel"
   is '电话号码';
-comment on column BASE_STORE."phone"
+comment on column erp.BASE_STORE."phone"
   is '手机号码';
-comment on column BASE_STORE."email"
+comment on column erp.BASE_STORE."email"
   is '电子邮件';
-comment on column BASE_STORE."address"
+comment on column erp.BASE_STORE."address"
   is '地址';
-comment on column BASE_STORE."state"
+comment on column erp.BASE_STORE."state"
   is '状态0表示启用/1表示停用';
-comment on column BASE_STORE.datasource
+comment on column erp.BASE_STORE.datasource
   is '数据源';
-comment on column BASE_STORE.maxconnection
+comment on column erp.BASE_STORE.maxconnection
   is '最大连接数';
-comment on column BASE_STORE.delflag
+comment on column erp.BASE_STORE.delflag
   is '删除标记';
-comment on column BASE_STORE.rowtime
+comment on column erp.BASE_STORE.rowtime
   is '更新时间';
-comment on column BASE_STORE.rowver
+comment on column erp.BASE_STORE.rowver
   is '版本号';
-alter table BASE_STORE
+alter table erp.BASE_STORE
   add constraint BASE_STORE_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -216,7 +216,7 @@ prompt
 prompt Creating table SYSTEM_DEPT
 prompt ==========================
 prompt
-create table SYSTEM_DEPT
+create table erp.SYSTEM_DEPT
 (
   id       NUMBER not null,
   pid      NUMBER default 0,
@@ -226,7 +226,7 @@ create table SYSTEM_DEPT
   rowtime  DATE,
   rowver   NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -237,26 +237,26 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table SYSTEM_DEPT
+comment on table erp.SYSTEM_DEPT
   is '部门或组织机构表';
-comment on column SYSTEM_DEPT.id
+comment on column erp.SYSTEM_DEPT.id
   is 'ID';
-comment on column SYSTEM_DEPT.pid
+comment on column erp.SYSTEM_DEPT.pid
   is '父ID';
-comment on column SYSTEM_DEPT.deptname
+comment on column erp.SYSTEM_DEPT.deptname
   is '部门名称';
-comment on column SYSTEM_DEPT.colid
+comment on column erp.SYSTEM_DEPT.colid
   is '序列';
-comment on column SYSTEM_DEPT.delflag
+comment on column erp.SYSTEM_DEPT.delflag
   is '删除标记';
-comment on column SYSTEM_DEPT.rowtime
+comment on column erp.SYSTEM_DEPT.rowtime
   is '更新时间';
-comment on column SYSTEM_DEPT.rowver
+comment on column erp.SYSTEM_DEPT.rowver
   is '版本号';
-alter table SYSTEM_DEPT
+alter table erp.SYSTEM_DEPT
   add constraint SYSTEM_DEPT_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -272,7 +272,7 @@ prompt
 prompt Creating table SYSTEM_DICT
 prompt ==========================
 prompt
-create table SYSTEM_DICT
+create table erp.SYSTEM_DICT
 (
   id       VARCHAR2(15) not null,
   dicttype VARCHAR2(20) not null,
@@ -281,7 +281,7 @@ create table SYSTEM_DICT
   rowtime  DATE,
   rowver   NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -292,24 +292,24 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table SYSTEM_DICT
+comment on table erp.SYSTEM_DICT
   is '系统字典';
-comment on column SYSTEM_DICT.id
+comment on column erp.SYSTEM_DICT.id
   is 'ID';
-comment on column SYSTEM_DICT.dicttype
+comment on column erp.SYSTEM_DICT.dicttype
   is '字典类型';
-comment on column SYSTEM_DICT.dictcode
+comment on column erp.SYSTEM_DICT.dictcode
   is '代码';
-comment on column SYSTEM_DICT.dictname
+comment on column erp.SYSTEM_DICT.dictname
   is '名称';
-comment on column SYSTEM_DICT.rowtime
+comment on column erp.SYSTEM_DICT.rowtime
   is '更新时间';
-comment on column SYSTEM_DICT.rowver
+comment on column erp.SYSTEM_DICT.rowver
   is '版本号';
-alter table SYSTEM_DICT
+alter table erp.SYSTEM_DICT
   add constraint SYSTEM_DICT_KEY primary key (ID, DICTTYPE, DICTCODE)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -325,7 +325,7 @@ prompt
 prompt Creating table SYSTEM_MENU
 prompt ==========================
 prompt
-create table SYSTEM_MENU
+create table erp.SYSTEM_MENU
 (
   id            NUMBER not null,
   sid           NUMBER,
@@ -342,7 +342,7 @@ create table SYSTEM_MENU
   delflag       NUMBER,
   dirico        VARCHAR2(1000)
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -353,40 +353,40 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table SYSTEM_MENU
+comment on table erp.SYSTEM_MENU
   is '系统菜单';
-comment on column SYSTEM_MENU.id
+comment on column erp.SYSTEM_MENU.id
   is 'ID';
-comment on column SYSTEM_MENU.sid
+comment on column erp.SYSTEM_MENU.sid
   is 'SID';
-comment on column SYSTEM_MENU.type
+comment on column erp.SYSTEM_MENU.type
   is '类型';
-comment on column SYSTEM_MENU.colid
+comment on column erp.SYSTEM_MENU.colid
   is '序号';
-comment on column SYSTEM_MENU.menu
+comment on column erp.SYSTEM_MENU.menu
   is '菜单名称';
-comment on column SYSTEM_MENU.url
+comment on column erp.SYSTEM_MENU.url
   is 'URL';
-comment on column SYSTEM_MENU.ico
+comment on column erp.SYSTEM_MENU.ico
   is '图标';
-comment on column SYSTEM_MENU.power
+comment on column erp.SYSTEM_MENU.power
   is '权限';
-comment on column SYSTEM_MENU.write
+comment on column erp.SYSTEM_MENU.write
   is '可写';
-comment on column SYSTEM_MENU.menugroupid
+comment on column erp.SYSTEM_MENU.menugroupid
   is '工作流ID(如多个菜单用的是一套工作流,请设置FLOWID为相同值)';
-comment on column SYSTEM_MENU.menugroupname
+comment on column erp.SYSTEM_MENU.menugroupname
   is '工作流模块名称(如多个菜单用的是一套工作流,请设置FLOWNAME为相同值)';
-comment on column SYSTEM_MENU.description
+comment on column erp.SYSTEM_MENU.description
   is '描述';
-comment on column SYSTEM_MENU.delflag
+comment on column erp.SYSTEM_MENU.delflag
   is '删除标记';
-comment on column SYSTEM_MENU.dirico
+comment on column erp.SYSTEM_MENU.dirico
   is '目标图标';
-alter table SYSTEM_MENU
+alter table erp.SYSTEM_MENU
   add constraint SYSTEM_MENU_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -402,7 +402,7 @@ prompt
 prompt Creating table SYSTEM_USER
 prompt ==========================
 prompt
-create table SYSTEM_USER
+create table erp.SYSTEM_USER
 (
   id            VARCHAR2(15) not null,
   userid        VARCHAR2(20),
@@ -428,7 +428,7 @@ create table SYSTEM_USER
   rowtime       DATE,
   rowver        NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -439,58 +439,58 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table SYSTEM_USER
+comment on table erp.SYSTEM_USER
   is '用户管理';
-comment on column SYSTEM_USER.id
+comment on column erp.SYSTEM_USER.id
   is 'ID';
-comment on column SYSTEM_USER.userid
+comment on column erp.SYSTEM_USER.userid
   is '帐号';
-comment on column SYSTEM_USER.username
+comment on column erp.SYSTEM_USER.username
   is '姓名';
-comment on column SYSTEM_USER.sex
+comment on column erp.SYSTEM_USER.sex
   is '性别';
-comment on column SYSTEM_USER.password
+comment on column erp.SYSTEM_USER.password
   is '密码';
-comment on column SYSTEM_USER.deptid
+comment on column erp.SYSTEM_USER.deptid
   is '部门ID';
-comment on column SYSTEM_USER.positionid
+comment on column erp.SYSTEM_USER.positionid
   is '职务ID';
-comment on column SYSTEM_USER.roleids
+comment on column erp.SYSTEM_USER.roleids
   is '多个角色ID(在USERTYPE=1时,此字段只会保存一个角色ID)';
-comment on column SYSTEM_USER.rolenames
+comment on column erp.SYSTEM_USER.rolenames
   is '多个角色名称';
-comment on column SYSTEM_USER.email
+comment on column erp.SYSTEM_USER.email
   is '电子邮件';
-comment on column SYSTEM_USER.officephone
+comment on column erp.SYSTEM_USER.officephone
   is '办公电话';
-comment on column SYSTEM_USER.officeaddress
+comment on column erp.SYSTEM_USER.officeaddress
   is '办公地址';
-comment on column SYSTEM_USER.homephone
+comment on column erp.SYSTEM_USER.homephone
   is '家庭电话';
-comment on column SYSTEM_USER.homeaddress
+comment on column erp.SYSTEM_USER.homeaddress
   is '家庭地址';
-comment on column SYSTEM_USER.mobilephone
+comment on column erp.SYSTEM_USER.mobilephone
   is '移动电话';
-comment on column SYSTEM_USER.islock
+comment on column erp.SYSTEM_USER.islock
   is '锁定帐号';
-comment on column SYSTEM_USER.usertype
+comment on column erp.SYSTEM_USER.usertype
   is '用户类型(0应用用户/1管理用户)';
-comment on column SYSTEM_USER.createuserid
+comment on column erp.SYSTEM_USER.createuserid
   is 'SYSTEM_USER.ID 创建用户';
-comment on column SYSTEM_USER.colid
+comment on column erp.SYSTEM_USER.colid
   is '序号';
-comment on column SYSTEM_USER.manageuserid
+comment on column erp.SYSTEM_USER.manageuserid
   is '上级领导(经理)SYSTEM_USER.ID';
-comment on column SYSTEM_USER.delflag
+comment on column erp.SYSTEM_USER.delflag
   is '删除标记';
-comment on column SYSTEM_USER.rowtime
+comment on column erp.SYSTEM_USER.rowtime
   is '更新时间';
-comment on column SYSTEM_USER.rowver
+comment on column erp.SYSTEM_USER.rowver
   is '版本号';
-alter table SYSTEM_USER
+alter table erp.SYSTEM_USER
   add constraint SYSTEM_USER_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -501,8 +501,8 @@ alter table SYSTEM_USER
     minextents 1
     maxextents unlimited
   );
-create index SYSTEM_USER_USERID on SYSTEM_USER (USERID)
-  tablespace SYSDB
+create index erp.SYSTEM_USER_USERID on erp.SYSTEM_USER (USERID)
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -518,7 +518,7 @@ prompt
 prompt Creating table SYSTEM_FIND
 prompt ==========================
 prompt
-create table SYSTEM_FIND
+create table erp.SYSTEM_FIND
 (
   id         VARCHAR2(15) not null,
   menuid     NUMBER,
@@ -527,7 +527,7 @@ create table SYSTEM_FIND
   userid     VARCHAR2(15),
   delflag    NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -538,24 +538,24 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table SYSTEM_FIND
+comment on table erp.SYSTEM_FIND
   is '高级查询主表';
-comment on column SYSTEM_FIND.id
+comment on column erp.SYSTEM_FIND.id
   is 'ID';
-comment on column SYSTEM_FIND.menuid
+comment on column erp.SYSTEM_FIND.menuid
   is '菜单ID';
-comment on column SYSTEM_FIND.findname
+comment on column erp.SYSTEM_FIND.findname
   is '查询名称';
-comment on column SYSTEM_FIND.createdate
+comment on column erp.SYSTEM_FIND.createdate
   is '创建日期';
-comment on column SYSTEM_FIND.userid
+comment on column erp.SYSTEM_FIND.userid
   is '用户ID';
-comment on column SYSTEM_FIND.delflag
+comment on column erp.SYSTEM_FIND.delflag
   is '删除标记';
-alter table SYSTEM_FIND
+alter table erp.SYSTEM_FIND
   add constraint SYSTEM_FIND_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -566,18 +566,18 @@ alter table SYSTEM_FIND
     minextents 1
     maxextents unlimited
   );
-alter table SYSTEM_FIND
+alter table erp.SYSTEM_FIND
   add constraint SYSTEM_FIND_FK1 foreign key (MENUID)
-  references SYSTEM_MENU (ID) on delete cascade;
-alter table SYSTEM_FIND
+  references erp.SYSTEM_MENU (ID) on delete cascade;
+alter table erp.SYSTEM_FIND
   add constraint SYSTEM_FIND_FK2 foreign key (USERID)
-  references SYSTEM_USER (ID) on delete cascade;
+  references erp.SYSTEM_USER (ID) on delete cascade;
 
 prompt
 prompt Creating table SYSTEM_FIND_DETAIL
 prompt =================================
 prompt
-create table SYSTEM_FIND_DETAIL
+create table erp.SYSTEM_FIND_DETAIL
 (
   id     VARCHAR2(15) not null,
   pid    VARCHAR2(15),
@@ -589,7 +589,7 @@ create table SYSTEM_FIND_DETAIL
   andor  VARCHAR2(10),
   colid  NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -600,30 +600,30 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table SYSTEM_FIND_DETAIL
+comment on table erp.SYSTEM_FIND_DETAIL
   is '高级查询条件明细';
-comment on column SYSTEM_FIND_DETAIL.id
+comment on column erp.SYSTEM_FIND_DETAIL.id
   is 'id';
-comment on column SYSTEM_FIND_DETAIL.pid
+comment on column erp.SYSTEM_FIND_DETAIL.pid
   is 'pid';
-comment on column SYSTEM_FIND_DETAIL.lsymbo
+comment on column erp.SYSTEM_FIND_DETAIL.lsymbo
   is '左括号';
-comment on column SYSTEM_FIND_DETAIL.col
+comment on column erp.SYSTEM_FIND_DETAIL.col
   is '字段名';
-comment on column SYSTEM_FIND_DETAIL.el
+comment on column erp.SYSTEM_FIND_DETAIL.el
   is '条件';
-comment on column SYSTEM_FIND_DETAIL.value
+comment on column erp.SYSTEM_FIND_DETAIL.value
   is '值';
-comment on column SYSTEM_FIND_DETAIL.rsymbo
+comment on column erp.SYSTEM_FIND_DETAIL.rsymbo
   is '右括号';
-comment on column SYSTEM_FIND_DETAIL.andor
+comment on column erp.SYSTEM_FIND_DETAIL.andor
   is '与或关系';
-comment on column SYSTEM_FIND_DETAIL.colid
+comment on column erp.SYSTEM_FIND_DETAIL.colid
   is '序号';
-alter table SYSTEM_FIND_DETAIL
+alter table erp.SYSTEM_FIND_DETAIL
   add constraint SYSTEM_FIND_DETAIL_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -634,15 +634,15 @@ alter table SYSTEM_FIND_DETAIL
     minextents 1
     maxextents unlimited
   );
-alter table SYSTEM_FIND_DETAIL
+alter table erp.SYSTEM_FIND_DETAIL
   add constraint SYSTEM_FIND_DETAIL_KEY_FK foreign key (PID)
-  references SYSTEM_FIND (ID) on delete cascade;
+  references erp.SYSTEM_FIND (ID) on delete cascade;
 
 prompt
 prompt Creating table SYSTEM_FLOW
 prompt ==========================
 prompt
-create table SYSTEM_FLOW
+create table erp.SYSTEM_FLOW
 (
   id               VARCHAR2(15) not null,
   colid            NUMBER,
@@ -651,7 +651,7 @@ create table SYSTEM_FLOW
   condition        NUMBER default 0,
   designateuserids VARCHAR2(4000)
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -662,22 +662,22 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on column SYSTEM_FLOW.id
+comment on column erp.SYSTEM_FLOW.id
   is 'ID';
-comment on column SYSTEM_FLOW.colid
+comment on column erp.SYSTEM_FLOW.colid
   is '排序';
-comment on column SYSTEM_FLOW.nodename
+comment on column erp.SYSTEM_FLOW.nodename
   is '节点名称';
-comment on column SYSTEM_FLOW.nodeflag
+comment on column erp.SYSTEM_FLOW.nodeflag
   is '节点状态,singleprocess单人处理,multiprocess:多人处理,end结束';
-comment on column SYSTEM_FLOW.condition
+comment on column erp.SYSTEM_FLOW.condition
   is '条件,0显示所有人1只限部门领导,2指定人员,3不显示任何人,4当前创建人,5当前登录用户部门所有人,6上一步处理人';
-comment on column SYSTEM_FLOW.designateuserids
+comment on column erp.SYSTEM_FLOW.designateuserids
   is '指定用户';
-alter table SYSTEM_FLOW
+alter table erp.SYSTEM_FLOW
   add constraint SYSTEM_FLOW_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -693,7 +693,7 @@ prompt
 prompt Creating table SYSTEM_FLOW_DETAIL
 prompt =================================
 prompt
-create table SYSTEM_FLOW_DETAIL
+create table erp.SYSTEM_FLOW_DETAIL
 (
   id            VARCHAR2(15) not null,
   pid           VARCHAR2(15),
@@ -701,7 +701,7 @@ create table SYSTEM_FLOW_DETAIL
   menugroupname VARCHAR2(4000),
   fields        VARCHAR2(4000)
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -712,20 +712,20 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on column SYSTEM_FLOW_DETAIL.id
+comment on column erp.SYSTEM_FLOW_DETAIL.id
   is 'ID';
-comment on column SYSTEM_FLOW_DETAIL.pid
+comment on column erp.SYSTEM_FLOW_DETAIL.pid
   is '节点名称';
-comment on column SYSTEM_FLOW_DETAIL.menugroupid
+comment on column erp.SYSTEM_FLOW_DETAIL.menugroupid
   is '菜单.MENUGROUPID';
-comment on column SYSTEM_FLOW_DETAIL.menugroupname
+comment on column erp.SYSTEM_FLOW_DETAIL.menugroupname
   is '菜单.MENUGROUPNAME';
-comment on column SYSTEM_FLOW_DETAIL.fields
+comment on column erp.SYSTEM_FLOW_DETAIL.fields
   is '字段';
-alter table SYSTEM_FLOW_DETAIL
+alter table erp.SYSTEM_FLOW_DETAIL
   add constraint SYSTEM_FLOW_DETAIL_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -736,15 +736,15 @@ alter table SYSTEM_FLOW_DETAIL
     minextents 1
     maxextents unlimited
   );
-alter table SYSTEM_FLOW_DETAIL
+alter table erp.SYSTEM_FLOW_DETAIL
   add constraint SYSTEM_FLOW_DETAIL_FK foreign key (PID)
-  references SYSTEM_FLOW (ID) on delete cascade;
+  references erp.SYSTEM_FLOW (ID) on delete cascade;
 
 prompt
 prompt Creating table SYSTEM_GRID
 prompt ==========================
 prompt
-create table SYSTEM_GRID
+create table erp.SYSTEM_GRID
 (
   id              NUMBER not null,
   userid          VARCHAR2(50),
@@ -761,7 +761,7 @@ create table SYSTEM_GRID
   backgroundcolor VARCHAR2(50),
   isflicker       NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -772,40 +772,40 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table SYSTEM_GRID
+comment on table erp.SYSTEM_GRID
   is '系统表格设置参数';
-comment on column SYSTEM_GRID.id
+comment on column erp.SYSTEM_GRID.id
   is 'ID-Java';
-comment on column SYSTEM_GRID.userid
+comment on column erp.SYSTEM_GRID.userid
   is '用户ID-Java';
-comment on column SYSTEM_GRID.formtag
+comment on column erp.SYSTEM_GRID.formtag
   is 'Form窗口Tag-Java(即MENUID)';
-comment on column SYSTEM_GRID.gridtag
+comment on column erp.SYSTEM_GRID.gridtag
   is 'Form窗口中的GridTag-Java(即GridID)';
-comment on column SYSTEM_GRID.columnname
+comment on column erp.SYSTEM_GRID.columnname
   is '列名-Java';
-comment on column SYSTEM_GRID.band
+comment on column erp.SYSTEM_GRID.band
   is '列头';
-comment on column SYSTEM_GRID.colid
+comment on column erp.SYSTEM_GRID.colid
   is '序列';
-comment on column SYSTEM_GRID.width
+comment on column erp.SYSTEM_GRID.width
   is '宽度-Java';
-comment on column SYSTEM_GRID.defaultvalue
+comment on column erp.SYSTEM_GRID.defaultvalue
   is '默认值';
-comment on column SYSTEM_GRID.isshow
+comment on column erp.SYSTEM_GRID.isshow
   is '是否显示';
-comment on column SYSTEM_GRID.warning
+comment on column erp.SYSTEM_GRID.warning
   is '预警范围(如数字范围''20..30''或字符''张三'')';
-comment on column SYSTEM_GRID.fontcolor
+comment on column erp.SYSTEM_GRID.fontcolor
   is '字体颜色';
-comment on column SYSTEM_GRID.backgroundcolor
+comment on column erp.SYSTEM_GRID.backgroundcolor
   is '背景颜色';
-comment on column SYSTEM_GRID.isflicker
+comment on column erp.SYSTEM_GRID.isflicker
   is '闪烁';
-alter table SYSTEM_GRID
+alter table erp.SYSTEM_GRID
   add constraint SYSTEM_GRID_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -821,7 +821,7 @@ prompt
 prompt Creating table SYSTEM_LOGS
 prompt ==========================
 prompt
-create table SYSTEM_LOGS
+create table erp.SYSTEM_LOGS
 (
   id            VARCHAR2(15) not null,
   userip        VARCHAR2(50),
@@ -838,7 +838,7 @@ create table SYSTEM_LOGS
   returnparam   CLOB,
   method        VARCHAR2(255)
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -849,38 +849,38 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on column SYSTEM_LOGS.id
+comment on column erp.SYSTEM_LOGS.id
   is 'ID';
-comment on column SYSTEM_LOGS.userip
+comment on column erp.SYSTEM_LOGS.userip
   is 'IP地址';
-comment on column SYSTEM_LOGS.httpurl
+comment on column erp.SYSTEM_LOGS.httpurl
   is 'URL';
-comment on column SYSTEM_LOGS.userid
+comment on column erp.SYSTEM_LOGS.userid
   is '用户ID';
-comment on column SYSTEM_LOGS.username
+comment on column erp.SYSTEM_LOGS.username
   is '用户名';
-comment on column SYSTEM_LOGS.startdatetime
+comment on column erp.SYSTEM_LOGS.startdatetime
   is '记录时间';
-comment on column SYSTEM_LOGS.enddatetime
+comment on column erp.SYSTEM_LOGS.enddatetime
   is '结束时间';
-comment on column SYSTEM_LOGS.menuid
+comment on column erp.SYSTEM_LOGS.menuid
   is '菜单';
-comment on column SYSTEM_LOGS.classes
+comment on column erp.SYSTEM_LOGS.classes
   is '类名与方法';
-comment on column SYSTEM_LOGS.aroundobject
+comment on column erp.SYSTEM_LOGS.aroundobject
   is '被织入对象';
-comment on column SYSTEM_LOGS.objectparam
+comment on column erp.SYSTEM_LOGS.objectparam
   is '参数';
-comment on column SYSTEM_LOGS.httpparam
+comment on column erp.SYSTEM_LOGS.httpparam
   is '日志记录';
-comment on column SYSTEM_LOGS.returnparam
+comment on column erp.SYSTEM_LOGS.returnparam
   is '返回值';
-comment on column SYSTEM_LOGS.method
+comment on column erp.SYSTEM_LOGS.method
   is '方法';
-alter table SYSTEM_LOGS
+alter table erp.SYSTEM_LOGS
   add constraint SYSTEM_LOGS_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -896,7 +896,7 @@ prompt
 prompt Creating table SYSTEM_MANAGE_POWER
 prompt ==================================
 prompt
-create table SYSTEM_MANAGE_POWER
+create table erp.SYSTEM_MANAGE_POWER
 (
   id        VARCHAR2(15) not null,
   roleid    VARCHAR2(15),
@@ -906,7 +906,7 @@ create table SYSTEM_MANAGE_POWER
   iswrite   NUMBER,
   flag      NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -917,26 +917,26 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table SYSTEM_MANAGE_POWER
+comment on table erp.SYSTEM_MANAGE_POWER
   is '系统权限';
-comment on column SYSTEM_MANAGE_POWER.id
+comment on column erp.SYSTEM_MANAGE_POWER.id
   is 'ID';
-comment on column SYSTEM_MANAGE_POWER.roleid
+comment on column erp.SYSTEM_MANAGE_POWER.roleid
   is '角色ID(只限系统角色类型)';
-comment on column SYSTEM_MANAGE_POWER.menuid
+comment on column erp.SYSTEM_MANAGE_POWER.menuid
   is '菜单ID';
-comment on column SYSTEM_MANAGE_POWER.ispower
+comment on column erp.SYSTEM_MANAGE_POWER.ispower
   is '进入权限';
-comment on column SYSTEM_MANAGE_POWER.menuwrite
+comment on column erp.SYSTEM_MANAGE_POWER.menuwrite
   is '来自SYSTEM_MENU.WRITE可写配置';
-comment on column SYSTEM_MANAGE_POWER.iswrite
+comment on column erp.SYSTEM_MANAGE_POWER.iswrite
   is '写权限';
-comment on column SYSTEM_MANAGE_POWER.flag
+comment on column erp.SYSTEM_MANAGE_POWER.flag
   is '标记';
-alter table SYSTEM_MANAGE_POWER
+alter table erp.SYSTEM_MANAGE_POWER
   add constraint SYSTEM_MANAGE_POWER_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -947,15 +947,15 @@ alter table SYSTEM_MANAGE_POWER
     minextents 1
     maxextents unlimited
   );
-alter table SYSTEM_MANAGE_POWER
+alter table erp.SYSTEM_MANAGE_POWER
   add constraint SYSTEM_MANAGE_POWER_KEY_FK foreign key (MENUID)
-  references SYSTEM_MENU (ID) on delete cascade;
+  references erp.SYSTEM_MENU (ID) on delete cascade;
 
 prompt
 prompt Creating table SYSTEM_RULE
 prompt ==========================
 prompt
-create table SYSTEM_RULE
+create table erp.SYSTEM_RULE
 (
   id       VARCHAR2(15) not null,
   menuid   NUMBER,
@@ -964,7 +964,7 @@ create table SYSTEM_RULE
   num      NUMBER,
   remark   VARCHAR2(500)
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -975,24 +975,24 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table SYSTEM_RULE
+comment on table erp.SYSTEM_RULE
   is '权限规则表';
-comment on column SYSTEM_RULE.id
+comment on column erp.SYSTEM_RULE.id
   is 'ID';
-comment on column SYSTEM_RULE.menuid
+comment on column erp.SYSTEM_RULE.menuid
   is '菜单ID';
-comment on column SYSTEM_RULE.rulename
+comment on column erp.SYSTEM_RULE.rulename
   is '规则名称';
-comment on column SYSTEM_RULE.rulesql
+comment on column erp.SYSTEM_RULE.rulesql
   is '规则SQL';
-comment on column SYSTEM_RULE.num
+comment on column erp.SYSTEM_RULE.num
   is '序号';
-comment on column SYSTEM_RULE.remark
+comment on column erp.SYSTEM_RULE.remark
   is '备注';
-alter table SYSTEM_RULE
+alter table erp.SYSTEM_RULE
   add constraint SYSTEM_RULE_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -1003,15 +1003,15 @@ alter table SYSTEM_RULE
     minextents 1
     maxextents unlimited
   );
-alter table SYSTEM_RULE
+alter table erp.SYSTEM_RULE
   add constraint SYSTEM_RULE_KEY_FK foreign key (MENUID)
-  references SYSTEM_MENU (ID) on delete cascade;
+  references erp.SYSTEM_MENU (ID) on delete cascade;
 
 prompt
 prompt Creating table SYSTEM_MANAGE_POWER_RULE
 prompt =======================================
 prompt
-create table SYSTEM_MANAGE_POWER_RULE
+create table erp.SYSTEM_MANAGE_POWER_RULE
 (
   id            VARCHAR2(15) not null,
   managepowerid VARCHAR2(15),
@@ -1019,7 +1019,7 @@ create table SYSTEM_MANAGE_POWER_RULE
   checked       NUMBER,
   flag          NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -1030,22 +1030,22 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table SYSTEM_MANAGE_POWER_RULE
+comment on table erp.SYSTEM_MANAGE_POWER_RULE
   is '数据权限表';
-comment on column SYSTEM_MANAGE_POWER_RULE.id
+comment on column erp.SYSTEM_MANAGE_POWER_RULE.id
   is 'ID';
-comment on column SYSTEM_MANAGE_POWER_RULE.managepowerid
+comment on column erp.SYSTEM_MANAGE_POWER_RULE.managepowerid
   is 'SYSTEM_MANAGE_POWER.ID权限表';
-comment on column SYSTEM_MANAGE_POWER_RULE.ruleid
+comment on column erp.SYSTEM_MANAGE_POWER_RULE.ruleid
   is '来自SYSTEM_RULE.ID数据';
-comment on column SYSTEM_MANAGE_POWER_RULE.checked
+comment on column erp.SYSTEM_MANAGE_POWER_RULE.checked
   is '选择';
-comment on column SYSTEM_MANAGE_POWER_RULE.flag
+comment on column erp.SYSTEM_MANAGE_POWER_RULE.flag
   is '标记';
-alter table SYSTEM_MANAGE_POWER_RULE
+alter table erp.SYSTEM_MANAGE_POWER_RULE
   add constraint SYSTEM_MANAGE_POWER_RULE_KEY1 primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -1056,18 +1056,18 @@ alter table SYSTEM_MANAGE_POWER_RULE
     minextents 1
     maxextents unlimited
   );
-alter table SYSTEM_MANAGE_POWER_RULE
+alter table erp.SYSTEM_MANAGE_POWER_RULE
   add constraint SYSTEM_MANAGE_POWER_RULE_KEY2 foreign key (RULEID)
-  references SYSTEM_RULE (ID) on delete cascade;
-alter table SYSTEM_MANAGE_POWER_RULE
+  references erp.SYSTEM_RULE (ID) on delete cascade;
+alter table erp.SYSTEM_MANAGE_POWER_RULE
   add constraint SYSTEM_MANAGE_POWER_RULE_KEY3 foreign key (MANAGEPOWERID)
-  references SYSTEM_MANAGE_POWER (ID) on delete cascade;
+  references erp.SYSTEM_MANAGE_POWER (ID) on delete cascade;
 
 prompt
 prompt Creating table SYSTEM_PARAM
 prompt ===========================
 prompt
-create table SYSTEM_PARAM
+create table erp.SYSTEM_PARAM
 (
   id          VARCHAR2(15) not null,
   usefullife  DATE,
@@ -1083,7 +1083,7 @@ create table SYSTEM_PARAM
   pass        VARCHAR2(255),
   visits      NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -1094,36 +1094,36 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on column SYSTEM_PARAM.id
+comment on column erp.SYSTEM_PARAM.id
   is 'ID';
-comment on column SYSTEM_PARAM.usefullife
+comment on column erp.SYSTEM_PARAM.usefullife
   is '系统有效期';
-comment on column SYSTEM_PARAM.appname
+comment on column erp.SYSTEM_PARAM.appname
   is '系统名称';
-comment on column SYSTEM_PARAM.version
+comment on column erp.SYSTEM_PARAM.version
   is '版本';
-comment on column SYSTEM_PARAM.usercompany
+comment on column erp.SYSTEM_PARAM.usercompany
   is '用户单位信息';
-comment on column SYSTEM_PARAM.softcompany
+comment on column erp.SYSTEM_PARAM.softcompany
   is '软件服务商信息';
-comment on column SYSTEM_PARAM.phone
+comment on column erp.SYSTEM_PARAM.phone
   is '支持电话';
-comment on column SYSTEM_PARAM.system
+comment on column erp.SYSTEM_PARAM.system
   is '操作系统类型';
-comment on column SYSTEM_PARAM.pop3
+comment on column erp.SYSTEM_PARAM.pop3
   is 'POP3';
-comment on column SYSTEM_PARAM.stmp
+comment on column erp.SYSTEM_PARAM.stmp
   is 'STMP';
-comment on column SYSTEM_PARAM.login
+comment on column erp.SYSTEM_PARAM.login
   is '邮件用户';
-comment on column SYSTEM_PARAM.pass
+comment on column erp.SYSTEM_PARAM.pass
   is '邮件密码';
-comment on column SYSTEM_PARAM.visits
+comment on column erp.SYSTEM_PARAM.visits
   is '系统访问总数';
-alter table SYSTEM_PARAM
+alter table erp.SYSTEM_PARAM
   add constraint SYSTEM_PARAM_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -1139,7 +1139,7 @@ prompt
 prompt Creating table SYSTEM_POSITION
 prompt ==============================
 prompt
-create table SYSTEM_POSITION
+create table erp.SYSTEM_POSITION
 (
   id           VARCHAR2(15) not null,
   positionname VARCHAR2(50),
@@ -1148,7 +1148,7 @@ create table SYSTEM_POSITION
   rowtime      DATE,
   rowver       NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -1159,24 +1159,24 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table SYSTEM_POSITION
+comment on table erp.SYSTEM_POSITION
   is '职务管理';
-comment on column SYSTEM_POSITION.id
+comment on column erp.SYSTEM_POSITION.id
   is 'ID';
-comment on column SYSTEM_POSITION.positionname
+comment on column erp.SYSTEM_POSITION.positionname
   is '职务名称';
-comment on column SYSTEM_POSITION.remark
+comment on column erp.SYSTEM_POSITION.remark
   is '备注';
-comment on column SYSTEM_POSITION.delflag
+comment on column erp.SYSTEM_POSITION.delflag
   is '删除标记';
-comment on column SYSTEM_POSITION.rowtime
+comment on column erp.SYSTEM_POSITION.rowtime
   is '最后更新时间';
-comment on column SYSTEM_POSITION.rowver
+comment on column erp.SYSTEM_POSITION.rowver
   is '最后更新版本号';
-alter table SYSTEM_POSITION
+alter table erp.SYSTEM_POSITION
   add constraint SYSTEM_WORK_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -1192,7 +1192,7 @@ prompt
 prompt Creating table SYSTEM_POSITION_DETAIL
 prompt =====================================
 prompt
-create table SYSTEM_POSITION_DETAIL
+create table erp.SYSTEM_POSITION_DETAIL
 (
   id            VARCHAR2(15) not null,
   pid           VARCHAR2(15),
@@ -1200,7 +1200,7 @@ create table SYSTEM_POSITION_DETAIL
   menugroupname VARCHAR2(4000),
   flowids       VARCHAR2(4000)
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -1211,20 +1211,20 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on column SYSTEM_POSITION_DETAIL.id
+comment on column erp.SYSTEM_POSITION_DETAIL.id
   is 'ID';
-comment on column SYSTEM_POSITION_DETAIL.pid
+comment on column erp.SYSTEM_POSITION_DETAIL.pid
   is 'PID';
-comment on column SYSTEM_POSITION_DETAIL.menugroupid
+comment on column erp.SYSTEM_POSITION_DETAIL.menugroupid
   is '菜单MENUGROUP';
-comment on column SYSTEM_POSITION_DETAIL.menugroupname
+comment on column erp.SYSTEM_POSITION_DETAIL.menugroupname
   is '菜单名称MENUGROUP';
-comment on column SYSTEM_POSITION_DETAIL.flowids
+comment on column erp.SYSTEM_POSITION_DETAIL.flowids
   is 'SYSTEM_FLOW.ID';
-alter table SYSTEM_POSITION_DETAIL
+alter table erp.SYSTEM_POSITION_DETAIL
   add constraint SYSTEM_POSITION_DETAIL_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -1235,15 +1235,15 @@ alter table SYSTEM_POSITION_DETAIL
     minextents 1
     maxextents unlimited
   );
-alter table SYSTEM_POSITION_DETAIL
+alter table erp.SYSTEM_POSITION_DETAIL
   add constraint SYSTEM_POSITION_DETAIL_FK foreign key (PID)
-  references SYSTEM_POSITION (ID) on delete cascade;
+  references erp.SYSTEM_POSITION (ID) on delete cascade;
 
 prompt
 prompt Creating table SYSTEM_ROLE
 prompt ==========================
 prompt
-create table SYSTEM_ROLE
+create table erp.SYSTEM_ROLE
 (
   id           VARCHAR2(15) not null,
   rolename     VARCHAR2(50),
@@ -1254,7 +1254,7 @@ create table SYSTEM_ROLE
   rowtime      DATE,
   rowver       NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -1265,28 +1265,28 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table SYSTEM_ROLE
+comment on table erp.SYSTEM_ROLE
   is '角色管理';
-comment on column SYSTEM_ROLE.id
+comment on column erp.SYSTEM_ROLE.id
   is 'ID';
-comment on column SYSTEM_ROLE.rolename
+comment on column erp.SYSTEM_ROLE.rolename
   is '角色名称';
-comment on column SYSTEM_ROLE.roletype
+comment on column erp.SYSTEM_ROLE.roletype
   is '角色类型(0应用角色/1管理角色)';
-comment on column SYSTEM_ROLE.remark
+comment on column erp.SYSTEM_ROLE.remark
   is '备注';
-comment on column SYSTEM_ROLE.createuserid
+comment on column erp.SYSTEM_ROLE.createuserid
   is 'SYSTEM_USER.ID';
-comment on column SYSTEM_ROLE.delflag
+comment on column erp.SYSTEM_ROLE.delflag
   is '删除标记';
-comment on column SYSTEM_ROLE.rowtime
+comment on column erp.SYSTEM_ROLE.rowtime
   is '更新时间';
-comment on column SYSTEM_ROLE.rowver
+comment on column erp.SYSTEM_ROLE.rowver
   is '版本号';
-alter table SYSTEM_ROLE
+alter table erp.SYSTEM_ROLE
   add constraint SYSTEM_ROLE_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -1302,7 +1302,7 @@ prompt
 prompt Creating table SYSTEM_USER_POWER
 prompt ================================
 prompt
-create table SYSTEM_USER_POWER
+create table erp.SYSTEM_USER_POWER
 (
   id                VARCHAR2(15) not null,
   managepowerid2    VARCHAR2(15),
@@ -1313,7 +1313,7 @@ create table SYSTEM_USER_POWER
   iswrite2          NUMBER,
   flag2             NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -1324,28 +1324,28 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table SYSTEM_USER_POWER
+comment on table erp.SYSTEM_USER_POWER
   is '系统权限';
-comment on column SYSTEM_USER_POWER.id
+comment on column erp.SYSTEM_USER_POWER.id
   is 'ID';
-comment on column SYSTEM_USER_POWER.managepowerid2
+comment on column erp.SYSTEM_USER_POWER.managepowerid2
   is '来自SYSTEM_MANAGE_POWER.ID值';
-comment on column SYSTEM_USER_POWER.roleid2
+comment on column erp.SYSTEM_USER_POWER.roleid2
   is '角色ID(只限应用角色类型)';
-comment on column SYSTEM_USER_POWER.menuid2
+comment on column erp.SYSTEM_USER_POWER.menuid2
   is '菜单ID';
-comment on column SYSTEM_USER_POWER.ispower2
+comment on column erp.SYSTEM_USER_POWER.ispower2
   is '进入权限';
-comment on column SYSTEM_USER_POWER.managepowerwrite2
+comment on column erp.SYSTEM_USER_POWER.managepowerwrite2
   is '来自SYSTEM_MANAGE_POWER.ISWRITE可写配置';
-comment on column SYSTEM_USER_POWER.iswrite2
+comment on column erp.SYSTEM_USER_POWER.iswrite2
   is '写权限';
-comment on column SYSTEM_USER_POWER.flag2
+comment on column erp.SYSTEM_USER_POWER.flag2
   is '标记';
-alter table SYSTEM_USER_POWER
+alter table erp.SYSTEM_USER_POWER
   add constraint SYSTEM_USER_POWER_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -1356,15 +1356,15 @@ alter table SYSTEM_USER_POWER
     minextents 1
     maxextents unlimited
   );
-alter table SYSTEM_USER_POWER
+alter table erp.SYSTEM_USER_POWER
   add constraint SYSTEM_USER_POWER_KEY_FK foreign key (MENUID2)
-  references SYSTEM_MENU (ID) on delete cascade;
+  references erp.SYSTEM_MENU (ID) on delete cascade;
 
 prompt
 prompt Creating table SYSTEM_USER_POWER_RULE
 prompt =====================================
 prompt
-create table SYSTEM_USER_POWER_RULE
+create table erp.SYSTEM_USER_POWER_RULE
 (
   id                 VARCHAR2(15) not null,
   userpowerid        VARCHAR2(15),
@@ -1372,7 +1372,7 @@ create table SYSTEM_USER_POWER_RULE
   checked2           NUMBER,
   flag2              NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -1383,22 +1383,22 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table SYSTEM_USER_POWER_RULE
+comment on table erp.SYSTEM_USER_POWER_RULE
   is '数据权限表';
-comment on column SYSTEM_USER_POWER_RULE.id
+comment on column erp.SYSTEM_USER_POWER_RULE.id
   is 'ID';
-comment on column SYSTEM_USER_POWER_RULE.userpowerid
+comment on column erp.SYSTEM_USER_POWER_RULE.userpowerid
   is 'SYSTEM_USER_POWER.ID权限表';
-comment on column SYSTEM_USER_POWER_RULE.managepowerruleid2
+comment on column erp.SYSTEM_USER_POWER_RULE.managepowerruleid2
   is '来自SYSTEM_MANAGE_POWER_RULE.ID数据';
-comment on column SYSTEM_USER_POWER_RULE.checked2
+comment on column erp.SYSTEM_USER_POWER_RULE.checked2
   is '选择';
-comment on column SYSTEM_USER_POWER_RULE.flag2
+comment on column erp.SYSTEM_USER_POWER_RULE.flag2
   is '标记';
-alter table SYSTEM_USER_POWER_RULE
+alter table erp.SYSTEM_USER_POWER_RULE
   add constraint SYSTEM_USER_POWER_RULE_KEY1 primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -1409,18 +1409,18 @@ alter table SYSTEM_USER_POWER_RULE
     minextents 1
     maxextents unlimited
   );
-alter table SYSTEM_USER_POWER_RULE
+alter table erp.SYSTEM_USER_POWER_RULE
   add constraint SYSTEM_USER_POWER_RULE_KEY2 foreign key (MANAGEPOWERRULEID2)
-  references SYSTEM_MANAGE_POWER_RULE (ID) on delete cascade;
-alter table SYSTEM_USER_POWER_RULE
+  references erp.SYSTEM_MANAGE_POWER_RULE (ID) on delete cascade;
+alter table erp.SYSTEM_USER_POWER_RULE
   add constraint SYSTEM_USER_POWER_RULE_KEY3 foreign key (USERPOWERID)
-  references SYSTEM_USER_POWER (ID) on delete cascade;
+  references erp.SYSTEM_USER_POWER (ID) on delete cascade;
 
 prompt
 prompt Creating table WORKFLOW_INSTANCE
 prompt ================================
 prompt
-create table WORKFLOW_INSTANCE
+create table erp.WORKFLOW_INSTANCE
 (
   id            VARCHAR2(15) not null,
   pid           VARCHAR2(15),
@@ -1437,7 +1437,7 @@ create table WORKFLOW_INSTANCE
   nodememo      VARCHAR2(4000),
   ismulit       NUMBER
 )
-tablespace SYSDB
+tablespace ERP_SPACE
   pctfree 10
   initrans 1
   maxtrans 255
@@ -1448,40 +1448,40 @@ tablespace SYSDB
     minextents 1
     maxextents unlimited
   );
-comment on table WORKFLOW_INSTANCE
+comment on table erp.WORKFLOW_INSTANCE
   is '此表在Java代码中，无Entity类';
-comment on column WORKFLOW_INSTANCE.id
+comment on column erp.WORKFLOW_INSTANCE.id
   is 'ID';
-comment on column WORKFLOW_INSTANCE.pid
+comment on column erp.WORKFLOW_INSTANCE.pid
   is '上一节点ID';
-comment on column WORKFLOW_INSTANCE.menugroupid
+comment on column erp.WORKFLOW_INSTANCE.menugroupid
   is '模块ID';
-comment on column WORKFLOW_INSTANCE.itemnoid
+comment on column erp.WORKFLOW_INSTANCE.itemnoid
   is '单号';
-comment on column WORKFLOW_INSTANCE.nodeid
+comment on column erp.WORKFLOW_INSTANCE.nodeid
   is '节点ID';
-comment on column WORKFLOW_INSTANCE.nodeflag
+comment on column erp.WORKFLOW_INSTANCE.nodeflag
   is '节点状态';
-comment on column WORKFLOW_INSTANCE.nodepointer
+comment on column erp.WORKFLOW_INSTANCE.nodepointer
   is '节点指针';
-comment on column WORKFLOW_INSTANCE.groupnode
+comment on column erp.WORKFLOW_INSTANCE.groupnode
   is '节点组';
-comment on column WORKFLOW_INSTANCE.senduserid
+comment on column erp.WORKFLOW_INSTANCE.senduserid
   is '发起用户ID';
-comment on column WORKFLOW_INSTANCE.senddate
+comment on column erp.WORKFLOW_INSTANCE.senddate
   is '发起时间';
-comment on column WORKFLOW_INSTANCE.processuserid
+comment on column erp.WORKFLOW_INSTANCE.processuserid
   is '处理用户ID';
-comment on column WORKFLOW_INSTANCE.processdate
+comment on column erp.WORKFLOW_INSTANCE.processdate
   is '处理时间';
-comment on column WORKFLOW_INSTANCE.nodememo
+comment on column erp.WORKFLOW_INSTANCE.nodememo
   is '审批意见';
-comment on column WORKFLOW_INSTANCE.ismulit
+comment on column erp.WORKFLOW_INSTANCE.ismulit
   is '多人标记';
-alter table WORKFLOW_INSTANCE
+alter table erp.WORKFLOW_INSTANCE
   add constraint WORKFLOW_INSTANCE_KEY primary key (ID)
   using index 
-  tablespace SYSDB
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -1492,8 +1492,8 @@ alter table WORKFLOW_INSTANCE
     minextents 1
     maxextents unlimited
   );
-create index WORKFLOW_INSTANCE_POINTER on WORKFLOW_INSTANCE (NODEPOINTER)
-  tablespace SYSDB
+create index erp.WORKFLOW_INSTANCE_POINTER on erp.WORKFLOW_INSTANCE (NODEPOINTER)
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -1504,8 +1504,8 @@ create index WORKFLOW_INSTANCE_POINTER on WORKFLOW_INSTANCE (NODEPOINTER)
     minextents 1
     maxextents unlimited
   );
-create index WORKFLOW_INSTANCE_PROCESS on WORKFLOW_INSTANCE (PROCESSUSERID)
-  tablespace SYSDB
+create index erp.WORKFLOW_INSTANCE_PROCESS on erp.WORKFLOW_INSTANCE (PROCESSUSERID)
+  tablespace ERP_SPACE
   pctfree 10
   initrans 2
   maxtrans 255
@@ -1521,7 +1521,7 @@ prompt
 prompt Creating sequence BASE_CITY_SEQ
 prompt ===============================
 prompt
-create sequence BASE_CITY_SEQ
+create sequence erp.BASE_CITY_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000300
@@ -1533,7 +1533,7 @@ prompt
 prompt Creating sequence BASE_NEWS_SEQ
 prompt ===============================
 prompt
-create sequence BASE_NEWS_SEQ
+create sequence erp.BASE_NEWS_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 15779111
@@ -1545,7 +1545,7 @@ prompt
 prompt Creating sequence BASE_SERVER_SEQ
 prompt =================================
 prompt
-create sequence BASE_SERVER_SEQ
+create sequence erp.BASE_SERVER_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000320
@@ -1557,7 +1557,7 @@ prompt
 prompt Creating sequence BASE_STORE_SEQ
 prompt ================================
 prompt
-create sequence BASE_STORE_SEQ
+create sequence erp.BASE_STORE_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000020
@@ -1569,7 +1569,7 @@ prompt
 prompt Creating sequence SYSTEM_DEPT_SEQ
 prompt =================================
 prompt
-create sequence SYSTEM_DEPT_SEQ
+create sequence erp.SYSTEM_DEPT_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000280
@@ -1581,7 +1581,7 @@ prompt
 prompt Creating sequence SYSTEM_DICT_SEQ
 prompt =================================
 prompt
-create sequence SYSTEM_DICT_SEQ
+create sequence erp.SYSTEM_DICT_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000300
@@ -1593,7 +1593,7 @@ prompt
 prompt Creating sequence SYSTEM_FIND_DETAIL_SEQ
 prompt ========================================
 prompt
-create sequence SYSTEM_FIND_DETAIL_SEQ
+create sequence erp.SYSTEM_FIND_DETAIL_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000020
@@ -1605,7 +1605,7 @@ prompt
 prompt Creating sequence SYSTEM_FIND_SEQ
 prompt =================================
 prompt
-create sequence SYSTEM_FIND_SEQ
+create sequence erp.SYSTEM_FIND_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000020
@@ -1617,7 +1617,7 @@ prompt
 prompt Creating sequence SYSTEM_FLOW_DETAIL_SEQ
 prompt ========================================
 prompt
-create sequence SYSTEM_FLOW_DETAIL_SEQ
+create sequence erp.SYSTEM_FLOW_DETAIL_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000320
@@ -1629,7 +1629,7 @@ prompt
 prompt Creating sequence SYSTEM_FLOW_SEQ
 prompt =================================
 prompt
-create sequence SYSTEM_FLOW_SEQ
+create sequence erp.SYSTEM_FLOW_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000320
@@ -1641,7 +1641,7 @@ prompt
 prompt Creating sequence SYSTEM_GRID_SEQ
 prompt =================================
 prompt
-create sequence SYSTEM_GRID_SEQ
+create sequence erp.SYSTEM_GRID_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000540
@@ -1653,7 +1653,7 @@ prompt
 prompt Creating sequence SYSTEM_LOGS_SEQ
 prompt =================================
 prompt
-create sequence SYSTEM_LOGS_SEQ
+create sequence erp.SYSTEM_LOGS_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10163483
@@ -1665,7 +1665,7 @@ prompt
 prompt Creating sequence SYSTEM_MANAGE_POWER_RULE_SEQ
 prompt ==============================================
 prompt
-create sequence SYSTEM_MANAGE_POWER_RULE_SEQ
+create sequence erp.SYSTEM_MANAGE_POWER_RULE_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000440
@@ -1677,7 +1677,7 @@ prompt
 prompt Creating sequence SYSTEM_MANAGE_POWER_SEQ
 prompt =========================================
 prompt
-create sequence SYSTEM_MANAGE_POWER_SEQ
+create sequence erp.SYSTEM_MANAGE_POWER_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10001420
@@ -1689,7 +1689,7 @@ prompt
 prompt Creating sequence SYSTEM_POSITION_DETAIL_SEQ
 prompt ============================================
 prompt
-create sequence SYSTEM_POSITION_DETAIL_SEQ
+create sequence erp.SYSTEM_POSITION_DETAIL_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000240
@@ -1701,7 +1701,7 @@ prompt
 prompt Creating sequence SYSTEM_POSITION_SEQ
 prompt =====================================
 prompt
-create sequence SYSTEM_POSITION_SEQ
+create sequence erp.SYSTEM_POSITION_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10006240
@@ -1713,7 +1713,7 @@ prompt
 prompt Creating sequence SYSTEM_ROLE_SEQ
 prompt =================================
 prompt
-create sequence SYSTEM_ROLE_SEQ
+create sequence erp.SYSTEM_ROLE_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10001462
@@ -1725,7 +1725,7 @@ prompt
 prompt Creating sequence SYSTEM_RULE_SEQ
 prompt =================================
 prompt
-create sequence SYSTEM_RULE_SEQ
+create sequence erp.SYSTEM_RULE_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000300
@@ -1737,7 +1737,7 @@ prompt
 prompt Creating sequence SYSTEM_USER_POWER_RULE_SEQ
 prompt ============================================
 prompt
-create sequence SYSTEM_USER_POWER_RULE_SEQ
+create sequence erp.SYSTEM_USER_POWER_RULE_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000120
@@ -1749,7 +1749,7 @@ prompt
 prompt Creating sequence SYSTEM_USER_POWER_SEQ
 prompt =======================================
 prompt
-create sequence SYSTEM_USER_POWER_SEQ
+create sequence erp.SYSTEM_USER_POWER_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000680
@@ -1761,7 +1761,7 @@ prompt
 prompt Creating sequence SYSTEM_USER_SEQ
 prompt =================================
 prompt
-create sequence SYSTEM_USER_SEQ
+create sequence erp.SYSTEM_USER_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000440
@@ -1773,7 +1773,7 @@ prompt
 prompt Creating sequence WORKFLOW_GROUP
 prompt ================================
 prompt
-create sequence WORKFLOW_GROUP
+create sequence erp.WORKFLOW_GROUP
 minvalue 10000000
 maxvalue 99999999
 start with 10000640
@@ -1785,7 +1785,7 @@ prompt
 prompt Creating sequence WORKFLOW_INSTANCE_SEQ
 prompt =======================================
 prompt
-create sequence WORKFLOW_INSTANCE_SEQ
+create sequence erp.WORKFLOW_INSTANCE_SEQ
 minvalue 10000000
 maxvalue 99999999
 start with 10000760
@@ -1797,7 +1797,7 @@ prompt
 prompt Creating view SYSTEM_ACCESS
 prompt ===========================
 prompt
-create or replace view system_access as
+create or replace view erp.system_access as
 select id, sdname, sum(num) as num, count(userip) as userip from (
   select t.sd as id,
          case t.sd
@@ -1823,7 +1823,7 @@ prompt
 prompt Creating view SYSTEM_DEPT_USER
 prompt ==============================
 prompt
-create or replace view system_dept_user as
+create or replace view erp.system_dept_user as
 select "ID","PID","NAME","COLID", "XTYPE" from (
 
 select to_char(id) as id, to_char(nvl(pid, 0)) as pid, deptname as name, colid, 'DEPT' as xtype from system_dept where delflag = 0
@@ -1836,7 +1836,7 @@ prompt
 prompt Creating view SYSTEM_MENU_RULE
 prompt ==============================
 prompt
-create or replace view system_menu_rule as
+create or replace view erp.system_menu_rule as
 select a.id, a.menu, a.ico, a.power, a.write, b.rulename, b.rulesql, b.num from (
   select id, colid, ico, sys_connect_by_path(menu,'\') as menu, power, write
   from system_menu
@@ -1850,7 +1850,7 @@ prompt
 prompt Creating view SYSTEM_MODULE
 prompt ===========================
 prompt
-create or replace view system_module as
+create or replace view erp.system_module as
 select distinct
          t.sd as id,
          t.menu,
@@ -1882,7 +1882,7 @@ prompt
 prompt Creating view SYSTEM_ROLE_MANAGE_POWER
 prompt ======================================
 prompt
-create or replace view system_role_manage_power as
+create or replace view erp.system_role_manage_power as
 select distinct mid as id, mid, msid,mtype,mcolid,mmenu,mpower,mwrite,pispower,pmenuwrite,piswrite,rrolename,rrulename,rrulesql,rnum,rremark,rchecked, sys_connect_by_path(temp.mmenu,'\') as menu
 from (
 
@@ -1913,7 +1913,7 @@ prompt
 prompt Creating view SYSTEM_ROLE_USER_POWER
 prompt ====================================
 prompt
-create or replace view system_role_user_power as
+create or replace view erp.system_role_user_power as
 select distinct mid as id, mid, msid,mtype,mcolid,mmenu,mpower,mwrite,pispower,pmenuwrite,piswrite,pispower2,pmanagepowerwrite2,piswrite2,rrolename,rrulename,rrulesql,rnum,rremark,rchecked, sys_connect_by_path(temp.mmenu,'\') as menu
 from (
 
@@ -1948,7 +1948,7 @@ prompt
 prompt Creating view SYSTEM_USER_ROLE
 prompt ==============================
 prompt
-create or replace view system_user_role as
+create or replace view erp.system_user_role as
 select a.id, a.userid, a.username, b.deptname, d.positionname, a.rolenames, a.mobilephone, a.islock, a.usertype, c.username as createusername, a.rowtime
 from system_user a left join system_dept b on a.deptid = b.id left join system_user c on a.createuserid = c.id left join system_position d on a.positionid = d.id
 order by createusername, rolenames;
